@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetaria | RuangBelajarmu</title>
+    
+    <!-- SEO & Accessibility Meta -->
+    <meta name="description" content="Nikmati menu fresh dengan harga terjangkau, siap diantar ke lokasi belajarmu">
+    <meta name="keywords" content="cafetaria, makanan, minuman, delivery makanan, ruang belajar">
+    <meta name="author" content="RuangBelajarmu Team">
+    <meta name="theme-color" content="#1a5f23">
+    
+    <!-- Core Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Animation Libraries -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* ============================================
+           VARIABLES & RESET - SAMA DENGAN INDEX
+        ============================================= */
+        :root {
+            --primary-color: #1a5f23;
+            --primary-dark: #0f3a15;
+            --primary-light: #2e8b3a;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ffc107;
+            --text-dark: #212529;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --border-color: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.15);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: all 0.3s ease;
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: var(--white);
+            border: none;
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-outline-success {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-outline-success:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        /* ============================================
+           NAVIGATION - SAMA DENGAN INDEX
+        ============================================= */
+        .navbar {
+            padding: 12px 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(11, 61, 35, 0.1);
+            z-index: 1030;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .navbar-brand {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-container {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .navbar-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #198754;
+            padding: 2px;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(25, 135, 84, 0.15);
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(25, 135, 84, 0.25);
+        }
+        
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .navbar-nav .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #0b3d23 !important;
+            padding: 10px 16px !important;
+            margin: 0 2px;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            border-radius: 2px;
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+        
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 70%;
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+        }
+        
+        .navbar-nav .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow-lg);
+            border-radius: 12px;
+            padding: 8px;
+            margin-top: 12px;
+            min-width: 220px;
+            border: 1px solid rgba(11, 61, 35, 0.1);
+        }
+        
+        /* ============================================
+           HERO SECTION CAFETARIA
+        ============================================= */
+        .cafetaria-hero {
+            background: linear-gradient(135deg, #1a5f23 0%, #0f3a15 100%);
+            color: white;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            margin-top: -80px;
+        }
+        
+        .cafetaria-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M20,30 Q50,10 80,30 T100,30 L100,70 Q80,90 50,70 T20,70 Z" fill="white"/></svg>');
+            background-size: cover;
+        }
+        
+        .cafetaria-hero .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cafetaria-hero .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cafetaria-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            line-height: 1.2;
+        }
+        
+        .cafetaria-hero .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .delivery-badge {
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        /* ============================================
+           SPECIAL OFFER
+        ============================================= */
+        .special-offer {
+            background: linear-gradient(135deg, var(--accent-color) 0%, #ffca28 100%);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem auto;
+            border: 2px dashed var(--primary-color);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        /* ============================================
+           MENU STYLING
+        ============================================= */
+        .category-nav {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+            z-index: 100;
+        }
+        
+        .category-btn {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 5px;
+        }
+        
+        .category-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: var(--white);
+            border-color: transparent;
+        }
+        
+        .menu-item {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            border: 2px solid transparent;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .item-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--light-gray), #e8f5e9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+        
+        .menu-item:hover .item-image img {
+            transform: scale(1.05);
+        }
+        
+        .item-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .item-rating {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 2;
+        }
+        
+        .menu-item .card-body {
+            padding: 1.5rem;
+        }
+        
+        .price {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .prep-time {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* ============================================
+           CART STYLING
+        ============================================= */
+        .cart-container {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 100px;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .cart-item {
+            background: var(--light-gray);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .order-summary {
+            background: #f8f9fa;
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        /* ============================================
+           PAYMENT METHODS
+        ============================================= */
+        .payment-method-btn {
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: 2px solid var(--border-color);
+            background: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .payment-method-btn:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .payment-method-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        /* ============================================
+           FOOTER - SAMA DENGAN INDEX
+        ============================================= */
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: var(--white);
+            padding: 5rem 0 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-section h5 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .footer-section h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .footer-links-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links-list li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links-list a {
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            padding: 0.25rem 0;
+        }
+        
+        .footer-links-list a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+        
+        .footer-links-list a i {
+            font-size: 0.8rem;
+            width: 16px;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* ============================================
+           RESPONSIVE DESIGN
+        ============================================= */
+        @media (max-width: 992px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .navbar {
+                padding: 10px 0;
+            }
+            
+            .cafetaria-hero {
+                padding: 100px 0 60px;
+            }
+            
+            .cafetaria-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cafetaria-hero .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .category-nav {
+                position: static;
+                overflow-x: auto;
+                display: flex;
+                flex-wrap: nowrap;
+                padding: 1rem;
+            }
+            
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+                white-space: nowrap;
+            }
+            
+            .cart-container {
+                position: static;
+                margin-top: 2rem;
+            }
+            
+            .payment-method-btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cafetaria-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .item-image {
+                height: 150px;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding-top: 65px;
+            }
+            
+            .cafetaria-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .cafetaria-hero .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .item-image {
+                height: 140px;
+            }
+            
+            .payment-method-btn {
+                min-width: 80px;
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* ============================================
+           UTILITY CLASSES
+        ============================================= */
+        .text-success {
+            color: var(--primary-color) !important;
+        }
+        
+        .bg-success {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .shadow-hover:hover {
+            box-shadow: var(--shadow-xl) !important;
+        }
+        
+        /* ============================================
+           IMAGE FALLBACK STYLING
+        ============================================= */
+        .image-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            font-size: 3.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - Sama dengan Index -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <!-- Brand with Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-container me-2">
+                    <img src="https://i.pinimg.com/736x/15/b1/71/15b17137e36ff051b32609885b4a23a9.jpg" 
+                         alt="RuangBelajarmu Logo" 
+                         class="navbar-logo rounded-circle border border-success">
+                </div>
+                <span class="fw-bold fs-4 text-success">RuangBelajarmu</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Beranda -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Beranda
+                        </a>
+                    </li>
+
+                    <!-- Booking -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="booking.html">
+                            <i class="bi bi-calendar-check me-1"></i>Booking
+                        </a>
+                    </li>
+
+                    <!-- Fasilitas Dropdown - ACTIVE -->
+                    <li class="nav-item dropdown mx-1">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-building me-1"></i>Fasilitas
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item active" href="cafetaria.html">
+                                    <i class="bi bi-cup-hot me-2"></i>Cafetaria
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="books.html">
+                                    <i class="bi bi-book me-2"></i>Buku
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Scan -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="scan.html">
+                            <i class="bi bi-qr-code-scan me-1"></i>Scan
+                        </a>
+                    </li>
+
+                    <!-- Maps -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="maps.html">
+                            <i class="bi bi-geo-alt me-1"></i>Maps
+                        </a>
+                    </li>
+
+                    <!-- Layanan Dropdown -->
+                    <li class="nav-item dropdown mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-headset me-1"></i>Layanan
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="about-us.html">
+                                    <i class="bi bi-info-circle me-2"></i>Tentang Kami
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="kontak.html">
+                                    <i class="bi bi-envelope me-2"></i>Kontak
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Cart Badge -->
+                    <li class="nav-item ms-2">
+                        <button class="btn btn-outline-success position-relative" onclick="scrollToCart()">
+                            <i class="bi bi-cart3"></i>
+                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" id="cartBadge">0</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section Cafetaria -->
+    <section class="cafetaria-hero" data-aos="fade-up">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="bi bi-cup-hot"></i>
+                    CAFETARIA
+                </div>
+                <h1> Menu Fresh Cafetaria Untuk Ruang Belajarmu </h1>
+                <p class="hero-subtitle">
+                    Nikmati makanan dan minuman berkualitas yang siap diantar ke ruang belajar, lab, atau aula tempat Anda booking. Pesan online, bayar dengan QRIS, dan makanan akan datang!
+                </p>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offer -->
+    <div class="container" data-aos="fade-up" data-aos-delay="200">
+        <div class="special-offer">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h4 class="fw-bold mb-2">
+                        <i class="bi bi-gift me-2"></i>
+                        Promo Spesial Hari Ini!
+                    </h4>
+                    <p class="mb-0">
+                        Beli 2 Caramel Macchiato dapat 1 Almond Cream Croissant gratis. 
+                        Gratis ongkir untuk pemesanan di atas Rp 50.000!
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end mt-2 mt-md-0">
+                    <button class="btn btn-success" onclick="applyPromo()">
+                        <i class="bi bi-tag me-2"></i>
+                        Klaim Promo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="container">
+        <div class="row">
+            <!-- Menu Items -->
+            <div class="col-lg-8">
+                <!-- Categories -->
+                <div class="category-nav">
+                    <div class="d-flex flex-wrap justify-content-center">
+                        <button class="category-btn active" onclick="filterMenu('all')">
+                            <i class="bi bi-grid"></i>
+                            Semua Menu
+                        </button>
+                        <button class="category-btn" onclick="filterMenu('food')">
+                            <i class="bi bi-egg-fried"></i>
+                            Makanan
+                        </button>
+                        <button class="category-btn" onclick="filterMenu('drinks')">
+                            <i class="bi bi-cup-straw"></i>
+                            Minuman
+                        </button>
+                        <button class="category-btn" onclick="filterMenu('coffee')">
+                            <i class="bi bi-cup-hot"></i>
+                            Kopi
+                        </button>
+                        <button class="category-btn" onclick="filterMenu('snacks')">
+                            <i class="bi bi-cookie"></i>
+                            Snack
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Grid -->
+                <div class="row g-4" id="menuGrid">
+                    <!-- Menu items akan dimuat di sini dengan gambar langsung -->
+                </div>
+
+                <!-- Cafetaria Info -->
+                <div class="card border-0 shadow-sm mt-4" style="background: #f8fff9;">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="fw-bold mb-2 text-success">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Tentang Cafetaria Kami
+                                </h4>
+                                <p class="mb-0">
+                                    Kami menggunakan bahan-bahan premium dan semuanya dibuat segar. 
+                                    Nikmati pengalaman makan terbaik di kampus dengan RuangBelajarmu Cafetaria.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <div class="d-flex flex-column">
+                                    <small><i class="bi bi-clock me-1"></i> Buka: 07:00 - 21:00</small>
+                                    <small><i class="bi bi-telephone me-1"></i> (0274) 551-234</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Section -->
+            <div class="col-lg-4">
+                <div class="cart-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold mb-0 text-success">
+                            <i class="bi bi-cart3 me-2"></i>
+                            Pesanan Anda
+                        </h4>
+                        <button class="btn btn-sm btn-outline-danger" onclick="clearCart()">
+                            <i class="bi bi-trash"></i> Kosongkan
+                        </button>
+                    </div>
+
+                    <!-- Cart Items -->
+                    <div id="cartItems" class="mb-4">
+                        <!-- Cart items will be loaded here -->
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <h6 class="fw-bold mb-3">Ringkasan Pesanan</h6>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal:</span>
+                            <span id="cartSubtotal" class="fw-bold text-success">Rp 0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>pajak:</span>
+                            <span id="deliveryFee" class="fw-bold text-success">Rp 3.000</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Diskon:</span>
+                            <span id="discount" class="text-success">Rp 0</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between fw-bold fs-5">
+                            <span>Total:</span>
+                            <span id="cartTotal" class="text-success">Rp 3.000</span>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Info -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-success">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Lokasi Pengiriman
+                        </label>
+                        <select class="form-select" id="deliveryLocation">
+                            <option value="">Pilih lokasi ruang booking</option>
+                            <option value="R301">Ruang 301 (Lantai 3)</option>
+                            <option value="R302">Ruang 302 (Lantai 3)</option>
+                            <option value="R303">Ruang 303 (Lantai 3)</option>
+                            <option value="R304">Ruang 304 (Lantai 3)</option>
+                            <option value="LAB1">Lab Komputer 1 (Lantai 2)</option>
+                            <option value="LAB2">Lab Komputer 2 (Lantai 2)</option>
+                            <option value="LAB3">Lab Komputer 3 (Lantai 2)</option>
+                            <option value="R201">Ruang 201 (Lantai 2)</option>
+                            <option value="R202">Ruang 202 (Lantai 2)</option>
+                            <option value="R203">Ruang 203 (Lantai 2)</option>
+                            <option value="AULA1">Aula Kecil (Lantai 1)</option>
+                            <option value="R101">Ruang 101 (Lantai 1)</option>
+                            <option value="R102">Ruang 102 (Lantai 1)</option>
+                            <option value="library">Perpustakaan Utama</option>
+                            <option value="other">Lokasi Lainnya (sebutkan di instruksi)</option>
+                        </select>
+                    </div>
+
+                    <!-- Special Instructions -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-success">
+                            <i class="bi bi-chat-text me-2"></i>
+                            Instruksi Khusus
+                        </label>
+                        <textarea class="form-control" id="specialInstructions" rows="2" placeholder="Contoh: Kurangi gula, tidak pakai kacang, atau detail lokasi khusus..."></textarea>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="mt-4">
+                        <label class="form-label fw-bold text-success">
+                            <i class="bi bi-credit-card me-2"></i>
+                            Pilih Metode Pembayaran
+                        </label>
+                        <div class="d-flex gap-2 flex-wrap mb-2" id="paymentMethods">
+                            <button type="button" class="btn btn-outline-secondary payment-method-btn active" data-method="qris">
+                                <i class="bi bi-qr-code"></i> QRIS
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary payment-method-btn" data-method="gopay">
+                                <i class="bi bi-phone"></i> GoPay
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary payment-method-btn" data-method="ovo">
+                                <i class="bi bi-lightning"></i> OVO
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary payment-method-btn" data-method="cash">
+                                <i class="bi bi-cash"></i> Tunai
+                            </button>
+                        </div>
+                        <small class="text-muted d-block text-center">
+                            Terpilih: <span id="selectedPaymentDisplay" class="fw-bold text-success">QRIS</span>
+                        </small>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <div class="d-grid mt-4">
+                        <button class="btn btn-success btn-lg py-3" id="checkoutBtn" onclick="checkoutOrder()">
+                            <i class="bi bi-bag-check me-2"></i>
+                            Checkout Pesanan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h5>RuangBelajarmu Cafetaria</h5>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">
+                        Menyediakan makanan dan minuman berkualitas.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Tautan Cepat</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Booking Ruang</a></li>
+                        <li><a href="maps.html"><i class="bi bi-chevron-right"></i> Peta Kampus</a></li>
+                        <li><a href="scan.html"><i class="bi bi-chevron-right"></i> Scan QR</a></li>
+                        <li><a href="cafetaria.html"><i class="bi bi-chevron-right"></i> Cafetaria</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Menu Cafetaria</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="cafetaria.html#menu"><i class="bi bi-chevron-right"></i> Makanan</a></li>
+                        <li><a href="cafetaria.html#menu"><i class="bi bi-chevron-right"></i> Minuman</a></li>
+                        <li><a href="cafetaria.html#menu"><i class="bi bi-chevron-right"></i> Kopi</a></li>
+                        <li><a href="cafetaria.html#menu"><i class="bi bi-chevron-right"></i> Snack</a></li>
+                        <li><a href="cafetaria.html#menu"><i class="bi bi-chevron-right"></i> Menu Spesial</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="footer-links-list">
+                        <li>
+                            <a href="mailto:cafetaria@ruangbelajarmu.uii.ac.id">
+                                <i class="bi bi-envelope"></i>
+                                cafetaria@ruangbelajarmu.uii.ac.id
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+62274551234">
+                                <i class="bi bi-telephone"></i>
+                                (0274) 551-234
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://maps.google.com/?q=UII+Kaliurang+KM+5" target="_blank">
+                                <i class="bi bi-geo-alt"></i>
+                                Jalan Kaliurang, Yogyakarta
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom text-center">
+                <p class="mb-2">&copy; 2024 RuangBelajarmu Cafetaria. Fresh & Delicious.</p>
+                <p class="mb-0 small" style="color: rgba(255,255,255,0.5);">
+                    <i class="bi bi-info-circle"></i>
+                    Layanan cafetaria dikembangkan untuk mendukung kegiatan belajar di lingkungan Universitas Islam Indonesia.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Modal -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); color: white;">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Pesanan Dikonfirmasi!
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <div class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-2">Pesanan Diterima</h4>
+                        <p class="text-muted">Pesanan Anda sedang diproses dan akan segera dikirim</p>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold text-success">Detail Pesanan</h6>
+                                    <div id="orderDetails">
+                                        <!-- Order details will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title fw-bold text-success">Kode QR Pengambilan</h6>
+                                    <div class="my-4">
+                                        <div id="orderQRCode" class="d-inline-block p-3 bg-white rounded border"></div>
+                                    </div>
+                                    <p class="small text-muted mb-0">
+                                        Tunjukkan kode QR ini saat mengambil pesanan Anda
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">
+                        <i class="bi bi-printer me-2"></i>
+                        Cetak Struk
+                    </button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Selesai
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Menu Data dengan gambar langsung yang Anda sediakan
+        const menuItems = [
+            // FOOD (3 items)
+            {
+                id: "F001",
+                name: "Chicken Wrapped Grilled",
+                description: "Ayam panggang juicy dibungkus tortilla dengan sayuran segar",
+                price: 35000,
+                category: "food",
+                emoji: "🌯",
+                popular: true,
+                rating: 4.8,
+                prepTime: "10-15 menit",
+                image: "https://i.pinimg.com/736x/8e/ab/b0/8eabb0c470669880c578fbde4c7931e0.jpg"
+            },
+            {
+                id: "F002",
+                name: "Almond Cream Croissant",
+                description: "Croissant mentega diisi krim almond dan irisan almond",
+                price: 28000,
+                category: "food",
+                emoji: "🥐",
+                popular: true,
+                rating: 4.9,
+                prepTime: "2-5 menit",
+                image: "https://i.pinimg.com/736x/af/1a/fd/af1afdcf30997db17e96a2386473d220.jpg"
+            },
+            {
+                id: "F003",
+                name: "Toast Chicken Mayo",
+                description: "Roti panggang renyah dengan ayam panggang dan saus mayo spesial",
+                price: 32000,
+                category: "food",
+                emoji: "🥪",
+                popular: false,
+                rating: 4.8,
+                prepTime: "7-10 menit",
+                image: "https://i.pinimg.com/736x/67/e8/a1/67e8a1247b9118bbaf1b18e3e6619151.jpg"
+            },
+            
+            // DRINKS (3 items)
+            {
+                id: "D001",
+                name: "Caramel Macchiato",
+                description: "Espresso dengan sirup vanilla, susu, dan tetesan caramel",
+                price: 32000,
+                category: "coffee",
+                emoji: "☕",
+                popular: true,
+                rating: 4.9,
+                prepTime: "5-8 menit",
+                image: "https://i.pinimg.com/1200x/89/6f/24/896f24940a6d7e5e721d07c71563b365.jpg"
+            },
+            {
+                id: "D002",
+                name: "Peach Tea Sparkling",
+                description: "Tea sparkling dengan rasa peach segar dan mint",
+                price: 25000,
+                category: "drinks",
+                emoji: "🍑",
+                popular: true,
+                rating: 4.9,
+                prepTime: "3-5 menit",
+                image: "https://i.pinimg.com/736x/fb/ad/e3/fbade3bef1991601fdce1bb9c4241669.jpg"
+            },
+            {
+                id: "D003",
+                name: "Cookies & Cream Milk",
+                description: "Susu dingin dengan rasa cookies & cream dan remahan kukis",
+                price: 22000,
+                category: "drinks",
+                emoji: "🥛",
+                popular: true,
+                rating: 4.8,
+                prepTime: "3-5 menit",
+                image: "https://i.pinimg.com/1200x/a0/19/ff/a019ff7347bdb11a1c8c05f32b7bb84a.jpg"
+            },
+            
+            // SNACKS
+            {
+                id: "S001",
+                name: "Chocolate Chip Cookie",
+                description: "Kukis panggang segar dengan coklat chip premium",
+                price: 15000,
+                category: "snacks",
+                emoji: "🍪",
+                popular: true,
+                rating: 5.0,
+                prepTime: "2-3 menit",
+                image: "https://i.pinimg.com/1200x/3d/39/70/3d397009c13a3a4e6a43f0cfdb17c420.jpg"
+            },
+            {
+                id: "S002",
+                name: "Fruit Yogurt Bowl",
+                description: "Yogurt Yunani dengan buah-buahan segar dan granola",
+                price: 28000,
+                category: "snacks",
+                emoji: "🥣",
+                popular: false,
+                rating: 4.9,
+                prepTime: "5-7 menit",
+                image: "https://i.pinimg.com/736x/87/04/59/87045970c4c79dc77eb173ec28c96f35.jpg"
+            }
+        ];
+        
+        // Cart data
+        let cart = [];
+        let activePromo = false;
+        let selectedPaymentMethod = 'qris'; // Default payment method
+        
+        // Location mapping untuk konversi ID ke nama lengkap
+        const locationMapping = {
+            'R301': 'Ruang 301 (Lantai 3)',
+            'R302': 'Ruang 302 (Lantai 3)',
+            'R303': 'Ruang 303 (Lantai 3)',
+            'R304': 'Ruang 304 (Lantai 3)',
+            'LAB1': 'Lab Komputer 1 (Lantai 2)',
+            'LAB2': 'Lab Komputer 2 (Lantai 2)',
+            'LAB3': 'Lab Komputer 3 (Lantai 2)',
+            'R201': 'Ruang 201 (Lantai 2)',
+            'R202': 'Ruang 202 (Lantai 2)',
+            'R203': 'Ruang 203 (Lantai 2)',
+            'AULA1': 'Aula Kecil (Lantai 1)',
+            'R101': 'Ruang 101 (Lantai 1)',
+            'R102': 'Ruang 102 (Lantai 1)',
+            'library': 'Perpustakaan Utama',
+            'other': 'Lokasi Lainnya'
+        };
+        
+        // Function untuk menampilkan gambar atau emoji fallback
+        function getItemImage(item) {
+            if (item.image) {
+                // Tampilkan gambar langsung dengan base64 placeholder jika gambar tidak ditemukan
+                return `<img src="${item.image}" alt="${item.name}" class="menu-item-image" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-fallback\'>${item.emoji}</div>';">
+                        <div class="image-loader"></div>`;
+            } else {
+                return `<div class="image-fallback">${item.emoji}</div>`;
+            }
+        }
+        
+        // Debug function
+        function debugCart() {
+            console.log("=== DEBUG CART ===");
+            console.log("Cart array:", cart);
+            console.log("Cart length:", cart.length);
+            console.log("Checkout button disabled:", document.getElementById('checkoutBtn').disabled);
+            console.log("Delivery location value:", document.getElementById('deliveryLocation').value);
+            console.log("Selected payment method:", selectedPaymentMethod);
+            console.log("===================");
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM loaded, initializing...");
+            loadMenuItems();
+            loadCart();
+            setupEventListeners();
+        });
+        
+        // Load menu items
+        function loadMenuItems(filter = 'all') {
+            const container = document.getElementById('menuGrid');
+            container.innerHTML = '';
+            
+            // Filter items
+            const filteredItems = filter === 'all' ? 
+                menuItems : 
+                menuItems.filter(item => item.category === filter);
+            
+            // If no items
+            if (filteredItems.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-cup text-muted" style="font-size: 3rem;"></i>
+                        <p class="text-muted mt-3">Tidak ada item menu ditemukan</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Create menu cards dengan gambar langsung
+            filteredItems.forEach(item => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6';
+                col.innerHTML = `
+                    <div class="menu-item h-100">
+                        <div class="item-image">
+                            ${getItemImage(item)}
+                            ${item.popular ? '<span class="item-badge">🔥 Terpopuler</span>' : ''}
+                            <div class="item-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <span>${item.rating}</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="fw-bold mb-0">${item.name}</h5>
+                                <div class="text-end">
+                                    <div class="price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                                </div>
+                            </div>
+                            <p class="small text-muted mb-3">${item.description}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="prep-time">
+                                    <i class="bi bi-clock me-1"></i>
+                                    ${item.prepTime}
+                                </small>
+                                <button class="btn btn-success btn-sm" onclick="addToCart('${item.id}')">
+                                    <i class="bi bi-cart-plus me-1"></i>
+                                    Tambah
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(col);
+            });
+        }
+        
+        // Filter menu
+        function filterMenu(category) {
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Load filtered menu
+            loadMenuItems(category);
+        }
+        
+        // Add item to cart
+        function addToCart(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            if (!item) return;
+            
+            // Check if item already in cart
+            const existingItem = cart.find(i => i.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    quantity: 1,
+                    emoji: item.emoji
+                });
+            }
+            
+            // Update UI and save
+            updateCartDisplay();
+            saveCart();
+            
+            // Show notification
+            showNotification(`${item.name} ditambahkan ke keranjang`, "success");
+            
+            // Animate cart badge
+            animateCartBadge();
+        }
+        
+        // Remove item from cart
+        function removeFromCart(itemId) {
+            const itemIndex = cart.findIndex(i => i.id === itemId);
+            if (itemIndex !== -1) {
+                cart.splice(itemIndex, 1);
+                updateCartDisplay();
+                saveCart();
+                showNotification("Item dihapus dari keranjang", "info");
+            }
+        }
+        
+        // Update quantity
+        function updateQuantity(itemId, change) {
+            const item = cart.find(i => i.id === itemId);
+            if (!item) return;
+            
+            item.quantity += change;
+            
+            if (item.quantity < 1) {
+                removeFromCart(itemId);
+            } else {
+                updateCartDisplay();
+                saveCart();
+            }
+        }
+        
+        // =============== FUNGSI updateCartDisplay() ===============
+        function updateCartDisplay() {
+            const container = document.getElementById('cartItems');
+            const cartBadge = document.getElementById('cartBadge');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            // Update cart badge
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+            
+            // If cart is empty
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="bi bi-cart text-muted" style="font-size: 2.5rem;"></i>
+                        <p class="text-muted mt-2">Keranjang Anda kosong</p>
+                        <small class="text-muted">Tambahkan item dari menu</small>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+                checkoutBtn.innerHTML = `<i class="bi bi-bag-check me-2"></i>Checkout Pesanan`;
+                updateCartTotals();
+                return;
+            }
+            
+            // ENABLE checkout button jika cart ada item
+            checkoutBtn.disabled = false;
+            checkoutBtn.innerHTML = `<i class="bi bi-bag-check me-2"></i>Checkout Pesanan (${totalItems} item)`;
+            
+            // Display cart items
+            let html = '';
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                
+                html += `
+                    <div class="cart-item">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h6 class="fw-bold mb-1">${item.emoji} ${item.name}</h6>
+                                <small class="text-muted">Rp ${item.price.toLocaleString('id-ID')} per item</small>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart('${item.id}')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-outline-secondary" onclick="updateQuantity('${item.id}', -1)">-</button>
+                                <button class="btn btn-outline-secondary" disabled>${item.quantity}</button>
+                                <button class="btn btn-outline-secondary" onclick="updateQuantity('${item.id}', 1)">+</button>
+                            </div>
+                            <span class="fw-bold text-success">Rp ${itemTotal.toLocaleString('id-ID')}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            updateCartTotals();
+            
+            console.log("Cart updated. Items:", cart.length, "Checkout enabled:", !checkoutBtn.disabled);
+        }
+        
+        // Update cart totals
+        function updateCartTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = subtotal >= 50000 ? 0 : 3000;
+            let discount = 0;
+            
+            // Apply promo if active
+            if (activePromo) {
+                discount = 15000;
+            }
+            
+            const total = subtotal + deliveryFee - discount;
+            
+            // Update UI
+            document.getElementById('cartSubtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            document.getElementById('deliveryFee').textContent = deliveryFee === 0 ? 'GRATIS' : `Rp ${deliveryFee.toLocaleString('id-ID')}`;
+            document.getElementById('deliveryFee').className = deliveryFee === 0 ? 'text-success fw-bold' : 'fw-bold text-success';
+            document.getElementById('discount').textContent = discount === 0 ? 'Rp 0' : `-Rp ${discount.toLocaleString('id-ID')}`;
+            document.getElementById('cartTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+        
+        // Apply promo
+        function applyPromo() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            if (subtotal < 25000) {
+                showNotification("Minimal pesanan Rp 25.000 untuk menggunakan promo", "warning");
+                return;
+            }
+            
+            activePromo = !activePromo;
+            updateCartTotals();
+            
+            if (activePromo) {
+                showNotification("Promo diterapkan! Diskon Rp 15.000", "success");
+            } else {
+                showNotification("Promo dihapus", "info");
+            }
+        }
+        
+        // =============== FUNGSI PAYMENT METHODS ===============
+        function setupPaymentMethods() {
+            const paymentButtons = document.querySelectorAll('.payment-method-btn');
+            const selectedPaymentDisplay = document.getElementById('selectedPaymentDisplay');
+            
+            // Add click event to each payment button
+            paymentButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    paymentButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update selected payment method
+                    selectedPaymentMethod = this.getAttribute('data-method');
+                    
+                    // Update display
+                    const methodNames = {
+                        'qris': 'QRIS',
+                        'gopay': 'GoPay',
+                        'ovo': 'OVO',
+                        'cash': 'Tunai'
+                    };
+                    selectedPaymentDisplay.textContent = methodNames[selectedPaymentMethod];
+                    
+                    // Save to localStorage
+                    localStorage.setItem('selectedPayment', selectedPaymentMethod);
+                    
+                    console.log("Payment method selected:", selectedPaymentMethod);
+                });
+            });
+            
+            // Load saved payment method
+            const savedPayment = localStorage.getItem('selectedPayment');
+            if (savedPayment) {
+                selectedPaymentMethod = savedPayment;
+                paymentButtons.forEach(btn => {
+                    if (btn.getAttribute('data-method') === savedPayment) {
+                        btn.classList.add('active');
+                        const methodNames = {
+                            'qris': 'QRIS',
+                            'gopay': 'GoPay',
+                            'ovo': 'OVO',
+                            'cash': 'Tunai'
+                        };
+                        selectedPaymentDisplay.textContent = methodNames[savedPayment];
+                    }
+                });
+            }
+        }
+        
+        // Fungsi untuk mendapatkan icon payment method
+        function getPaymentIcon(method) {
+            const icons = {
+                'qris': 'bi-qr-code',
+                'gopay': 'bi-phone',
+                'ovo': 'bi-lightning',
+                'cash': 'bi-cash'
+            };
+            return icons[method] || 'bi-credit-card';
+        }
+        
+        // =============== FUNGSI checkoutOrder() ===============
+        function checkoutOrder() {
+            console.log("=== CHECKOUT PROCESS STARTED ===");
+            
+            const deliveryLocation = document.getElementById('deliveryLocation').value;
+            const specialInstructions = document.getElementById('specialInstructions').value;
+            
+            // Validasi 1: Cart tidak boleh kosong
+            if (cart.length === 0) {
+                console.error("Cart is empty!");
+                showNotification("Keranjang Anda kosong. Tambahkan item terlebih dahulu!", "warning");
+                return false;
+            }
+            
+            // Validasi 2: Lokasi pengiriman harus dipilih
+            if (!deliveryLocation) {
+                console.error("No delivery location selected!");
+                showNotification("Silakan pilih lokasi pengiriman", "warning");
+                
+                // Highlight dropdown
+                const locationSelect = document.getElementById('deliveryLocation');
+                locationSelect.style.borderColor = "red";
+                locationSelect.focus();
+                setTimeout(() => {
+                    locationSelect.style.borderColor = "";
+                }, 3000);
+                
+                return false;
+            }
+            
+            console.log("All validations passed. Processing order...");
+            
+            // Hitung total
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = subtotal >= 50000 ? 0 : 3000;
+            const discount = activePromo ? 15000 : 0;
+            const total = subtotal + deliveryFee - discount;
+            
+            // Buat ID order
+            const orderId = `ORD-${Date.now().toString().slice(-6)}`;
+            
+            // Dapatkan nama lokasi lengkap
+            const locationName = locationMapping[deliveryLocation] || deliveryLocation;
+            
+            // Simpan order
+            const order = {
+                id: orderId,
+                timestamp: new Date().toLocaleString('id-ID'),
+                items: JSON.parse(JSON.stringify(cart)),
+                subtotal: subtotal,
+                deliveryFee: deliveryFee,
+                discount: discount,
+                total: total,
+                location: deliveryLocation,
+                locationName: locationName,
+                instructions: specialInstructions,
+                paymentMethod: selectedPaymentMethod,
+                status: "processing"
+            };
+            
+            console.log("Order created:", order);
+            
+            // Tampilkan modal konfirmasi
+            showOrderConfirmation(order);
+            
+            return true;
+        }
+        
+        // =============== FUNGSI showOrderConfirmation() ===============
+        function showOrderConfirmation(order) {
+            console.log("Showing order confirmation modal...");
+            
+            // Method names mapping
+            const methodNames = {
+                'qris': 'QRIS',
+                'gopay': 'GoPay',
+                'ovo': 'OVO',
+                'cash': 'Tunai'
+            };
+            
+            // 1. Update konten modal
+            const orderDetails = document.getElementById('orderDetails');
+            orderDetails.innerHTML = `
+                <div class="mb-2">
+                    <small class="text-muted">ID Pesanan</small>
+                    <div class="fw-bold">${order.id}</div>
+                </div>
+                <div class="mb-2">
+                    <small class="text-muted">Waktu Pesanan</small>
+                    <div class="fw-bold">${order.timestamp}</div>
+                </div>
+                <div class="mb-2">
+                    <small class="text-muted">Lokasi Pengiriman</small>
+                    <div class="fw-bold">${order.locationName}</div>
+                </div>
+                <div class="mb-2">
+                    <small class="text-muted">Metode Pembayaran</small>
+                    <div class="fw-bold">
+                        <i class="bi ${getPaymentIcon(order.paymentMethod)} me-1"></i>
+                        ${methodNames[order.paymentMethod]}
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <small class="text-muted">Item Dipesan</small>
+                    <div class="fw-bold">${order.items.length} item</div>
+                </div>
+                <div class="mb-2">
+                    <small class="text-muted">Total Pembayaran</small>
+                    <div class="fw-bold text-success">Rp ${order.total.toLocaleString('id-ID')}</div>
+                </div>
+                ${order.instructions ? `
+                <div class="mb-2">
+                    <small class="text-muted">Instruksi Khusus</small>
+                    <div class="fw-bold">${order.instructions}</div>
+                </div>
+                ` : ''}
+            `;
+            
+            // 2. Generate QR Code (dengan error handling)
+            const qrContainer = document.getElementById('orderQRCode');
+            qrContainer.innerHTML = '';
+            
+            try {
+                const qrData = JSON.stringify({
+                    orderId: order.id,
+                    total: order.total,
+                    timestamp: order.timestamp,
+                    location: order.location,
+                    paymentMethod: order.paymentMethod
+                });
+                
+                // Generate QR Code
+                QRCode.toCanvas(qrContainer, qrData, {
+                    width: 150,
+                    margin: 1,
+                    color: {
+                        dark: '#1a5f23',
+                        light: '#ffffff'
+                    }
+                }, function(error) {
+                    if (error) {
+                        console.error('QR Code error:', error);
+                        qrContainer.innerHTML = `
+                            <div class="text-center p-3">
+                                <i class="bi bi-qr-code-scan" style="font-size: 80px; color: #1a5f23;"></i>
+                                <p class="mt-2 small">ID Pesanan: ${order.id}</p>
+                                <p class="mt-1 small">Pembayaran: ${methodNames[order.paymentMethod]}</p>
+                            </div>
+                        `;
+                    }
+                });
+            } catch (error) {
+                console.error('QR Code generation failed:', error);
+                qrContainer.innerHTML = `
+                    <div class="text-center p-3">
+                        <i class="bi bi-qr-code-scan" style="font-size: 80px; color: #1a5f23;"></i>
+                        <p class="mt-2 small">ID Pesanan: ${order.id}</p>
+                        <p class="mt-1 small">Pembayaran: ${methodNames[order.paymentMethod]}</p>
+                    </div>
+                `;
+            }
+            
+            // 3. Tampilkan modal dengan Bootstrap
+            const modalElement = document.getElementById('orderModal');
+            const modal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+            
+            // Tampilkan modal
+            modal.show();
+            
+            console.log("Modal should be visible now");
+            
+            // 4. Clear cart setelah order berhasil
+            setTimeout(() => {
+                cart = [];
+                activePromo = false;
+                updateCartDisplay();
+                saveCart();
+                console.log("Cart cleared after order");
+            }, 1000);
+            
+            // 5. Tampilkan notifikasi sukses
+            showNotification(`Pesanan ${order.id} berhasil dibuat! Pembayaran: ${methodNames[order.paymentMethod]}`, "success");
+        }
+        
+        // Clear cart
+        function clearCart() {
+            if (cart.length === 0) return;
+            
+            if (confirm('Kosongkan keranjang belanja?')) {
+                cart = [];
+                activePromo = false;
+                updateCartDisplay();
+                saveCart();
+                showNotification("Keranjang dikosongkan", "success");
+            }
+        }
+        
+        // Scroll to cart
+        function scrollToCart() {
+            document.querySelector('.cart-container').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Highlight cart
+            const cartContainer = document.querySelector('.cart-container');
+            cartContainer.style.boxShadow = '0 0 0 3px rgba(26, 95, 35, 0.3)';
+            setTimeout(() => {
+                cartContainer.style.boxShadow = '';
+            }, 2000);
+        }
+        
+        // Animate cart badge
+        function animateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            badge.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                badge.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        // Get location name
+        function getLocationName(locationCode) {
+            return locationMapping[locationCode] || locationCode;
+        }
+        
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('cafetariaCart', JSON.stringify(cart));
+            localStorage.setItem('cafetariaPromo', JSON.stringify(activePromo));
+        }
+        
+        // Load cart from localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('cafetariaCart');
+            const savedPromo = localStorage.getItem('cafetariaPromo');
+            
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            
+            if (savedPromo) {
+                activePromo = JSON.parse(savedPromo);
+            }
+            
+            updateCartDisplay();
+        }
+        
+        // =============== FUNGSI setupEventListeners() ===============
+        function setupEventListeners() {
+            console.log("Setting up event listeners...");
+            
+            // Update totals when location changes
+            document.getElementById('deliveryLocation').addEventListener('change', updateCartTotals);
+            
+            // Auto-save special instructions
+            document.getElementById('specialInstructions').addEventListener('input', function() {
+                localStorage.setItem('cafetariaInstructions', this.value);
+            });
+            
+            // Setup payment methods
+            setupPaymentMethods();
+            
+            // Load saved instructions
+            const savedInstructions = localStorage.getItem('cafetariaInstructions');
+            if (savedInstructions) {
+                document.getElementById('specialInstructions').value = savedInstructions;
+            }
+            
+            console.log("Event listeners setup completed");
+        }
+        
+        // Show notification
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `position-fixed top-0 end-0 m-4 p-3 rounded shadow-lg`;
+            notification.style.cssText = `
+                background: ${type === 'success' ? '#1a5f23' : type === 'warning' ? '#FFD54F' : type === 'error' ? '#ff6b6b' : '#0f3a15'};
+                color: ${type === 'warning' ? '#1b5e20' : 'white'};
+                z-index: 9999;
+                min-width: 300px;
+                animation: fadeIn 0.3s ease;
+            `;
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'warning' ? 'bi-exclamation-triangle' : type === 'error' ? 'bi-x-circle' : 'bi-info-circle'} fs-5 me-3"></i>
+                    <div class="flex-grow-1">
+                        <p class="mb-0 fw-medium">${message}</p>
+                    </div>
+                    <button type="button" class="btn-close ${type === 'warning' ? '' : 'btn-close-white'}" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

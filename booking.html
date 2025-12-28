@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking System - RuangBelajarmu</title>
+    
+    <!-- SEO Meta -->
+    <meta name="description" content="Booking system untuk tempat di RuangBelajarmu - Smart Library">
+    <meta name="keywords" content="booking, perpustakaan, ruang belajar, QR code, smart lock">
+    <meta name="author" content="RuangBelajarmu Team">
+    
+    <!-- Core Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        /* ========== CUSTOM CSS UNTUK HALAMAN BOOKING ========== */
+        /* Perbaikan utama: spacing lebih rapat, tidak terlalu turun */
+        
+        /* Container utama - DIPERBAIKI dari 100px jadi 40px */
+        .booking-container {
+            padding-top: 40px;
+            min-height: 100vh;
+        }
+        
+        /* Header booking - DIPERBAIKI padding lebih kecil */
+        .booking-header {
+            text-align: center;
+            padding: 1.5rem 0 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .booking-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a5f23 0%, #2e7d32 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .booking-subtitle {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* Form Sections - DIPERBAIKI margin lebih kecil */
+        .form-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .form-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .section-title i {
+            color: #1a5f23;
+        }
+        
+        /* Room Selection */
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .room-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 300ms ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .room-card:hover {
+            border-color: #1a5f23;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .room-card.selected {
+            border-color: #1a5f23;
+            background: #e8f5e9;
+            box-shadow: 0 0 20px rgba(67, 160, 71, 0.2);
+        }
+        
+        .room-card.booked {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .room-card.booked:hover {
+            transform: none;
+            border-color: #e0e0e0;
+            box-shadow: none;
+        }
+        
+        .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        
+        .room-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .room-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-available {
+            background: rgba(67, 160, 71, 0.1);
+            color: #43a047;
+        }
+        
+        .status-limited {
+            background: rgba(255, 152, 0, 0.1);
+            color: #f57c00;
+        }
+        
+        .status-booked {
+            background: rgba(244, 67, 54, 0.1);
+            color: #d32f2f;
+        }
+        
+        .room-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .room-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+        
+        .feature-tag {
+            background: #f5f5f5;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        /* Form Controls */
+        .form-control, .form-select {
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 0.75rem 1rem;
+            transition: all 300ms ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #1a5f23;
+            box-shadow: 0 0 0 0.25rem rgba(26, 95, 35, 0.15);
+            outline: none;
+        }
+        
+        /* Time Slots */
+        .time-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+        
+        .time-slot {
+            padding: 0.7rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 300ms ease;
+            font-weight: 500;
+        }
+        
+        .time-slot:hover {
+            border-color: #1a5f23;
+            background: rgba(26, 95, 35, 0.05);
+        }
+        
+        .time-slot.selected {
+            border-color: #1a5f23;
+            background: #1a5f23;
+            color: white;
+        }
+        
+        .time-slot.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f5f5f5;
+        }
+        
+        .time-slot.disabled:hover {
+            border-color: #e0e0e0;
+            background: #f5f5f5;
+        }
+        
+        /* Buttons */
+        .btn-booking {
+            background: linear-gradient(135deg, #1a5f23 0%, #2e7d32 100%);
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 300ms ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .btn-booking:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(26, 95, 35, 0.3);
+        }
+        
+        /* QR Code Result Section */
+        .qr-result-section {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            margin-top: 1.5rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .qr-result-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .qr-result-header h3 {
+            color: #1a5f23;
+            margin-bottom: 0.5rem;
+        }
+        
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        
+        #qr-code {
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid #e8f5e9;
+        }
+        
+        .booking-info-card {
+            background: #e8f5e9;
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #1a5f23;
+        }
+        
+        .info-value {
+            font-weight: 500;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            background: white;
+            color: #1a5f23;
+            border: 2px solid #1a5f23;
+            padding: 0.7rem 1.2rem;
+            border-radius: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 300ms ease;
+            cursor: pointer;
+        }
+        
+        .download-btn:hover {
+            background: #1a5f23;
+            color: white;
+        }
+        
+        /* Search Box */
+        .search-box {
+            position: relative;
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            font-size: 1rem;
+            transition: all 300ms ease;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #1a5f23;
+            box-shadow: 0 0 0 0.25rem rgba(26, 95, 35, 0.15);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid #e0e0e0;
+            background: white;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            color: #666;
+            cursor: pointer;
+            transition: all 300ms ease;
+        }
+        
+        .filter-btn.active {
+            background: #1a5f23;
+            color: white;
+            border-color: #1a5f23;
+        }
+        
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #1a5f23, #2e7d32);
+            border-left: 5px solid #4caf50;
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, #c62828, #d32f2f);
+            border-left: 5px solid #f44336;
+        }
+        
+        .notification.warning {
+            background: linear-gradient(135deg, #ff8f00, #ffa000);
+            border-left: 5px solid #ffb300;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            flex-direction: column;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #1a5f23;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 768px) {
+            .booking-container {
+                padding-top: 20px;
+                padding: 0.5rem;
+            }
+            
+            .booking-title {
+                font-size: 1.8rem;
+            }
+            
+            .booking-subtitle {
+                font-size: 0.95rem;
+                padding: 0 0.5rem;
+            }
+            
+            .room-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .room-card {
+                padding: 1rem;
+            }
+            
+            .content-header {
+                padding: 1rem !important;
+            }
+            
+            .content-body {
+                padding: 1rem !important;
+            }
+            
+            .qr-result-section {
+                padding: 1.2rem;
+                margin: 1rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .time-slots-grid {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+                gap: 0.5rem;
+            }
+        }
+        
+        /* Untuk layar sangat kecil */
+        @media (max-width: 480px) {
+            .booking-container {
+                padding-top: 15px;
+            }
+            
+            .booking-title {
+                font-size: 1.6rem;
+            }
+            
+            .form-section {
+                margin-bottom: 1.2rem;
+                padding-bottom: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <!-- Brand with Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-container me-2">
+                    <img src="https://i.pinimg.com/736x/15/b1/71/15b17137e36ff051b32609885b4a23a9.jpg" 
+                         alt="RuangBelajarmu Logo" 
+                         class="navbar-logo rounded-circle border border-success">
+                </div>
+                <span class="fw-bold fs-4 text-success">RuangBelajarmu</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Beranda -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Beranda
+                        </a>
+                    </li>
+
+                    <!-- Booking - ACTIVE -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link active" href="booking.html">
+                            <i class="bi bi-calendar-check me-1"></i>Booking
+                        </a>
+                    </li>
+
+                    <!-- Fasilitas Dropdown -->
+                    <li class="nav-item dropdown mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-building me-1"></i>Fasilitas
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="cafetaria.html">
+                                    <i class="bi bi-cup-hot me-2"></i>Cafetaria
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="books.html">
+                                    <i class="bi bi-book me-2"></i>Buku
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Scan -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="scan.html">
+                            <i class="bi bi-qr-code-scan me-1"></i>Scan
+                        </a>
+                    </li>
+
+                    <!-- Maps -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="maps.html">
+                            <i class="bi bi-geo-alt me-1"></i>Maps
+                        </a>
+                    </li>
+
+                    <!-- Layanan Dropdown -->
+                    <li class="nav-item dropdown mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-headset me-1"></i>Layanan
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="about-us.html">
+                                    <i class="bi bi-info-circle me-2"></i>Tentang Kami
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="kontak.html">
+                                    <i class="bi bi-envelope me-2"></i>Kontak
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Booking Container -->
+    <div class="booking-container">
+        <div class="container">
+            <!-- Header -->
+            <div class="booking-header" data-aos="fade-up">
+                <h1 class="booking-title">Smart Booking System</h1>
+                <p class="booking-subtitle">
+                    Pesan ruang belajar dengan mudah. Dapatkan QR code untuk akses pintu smart lock.
+                </p>
+            </div>
+
+            <!-- Booking Content - Tempat -->
+            <div class="booking-content active" id="contentTempat" data-aos="fade-up">
+                <div class="content-header bg-success text-white p-3 rounded-top-4">
+                    <h4 class="mb-0"><i class="bi bi-building me-2"></i>Booking Tempat/Ruang</h4>
+                    <small class="opacity-90">Pilih ruang, tentukan waktu, dan dapatkan QR code untuk smart lock</small>
+                </div>
+                <div class="content-body bg-white p-3 p-md-4 rounded-bottom-4 shadow">
+                    <!-- Search and Filter -->
+                    <div class="search-section mb-3">
+                        <h5 class="section-title mb-2">
+                            <i class="bi bi-search"></i>
+                            Cari Ruang yang Tersedia
+                        </h5>
+                        <div class="search-box">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text" id="roomSearchInput" 
+                                   placeholder="Cari berdasarkan nama ruang, lantai, atau fasilitas...">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" onclick="filterRooms('all')">Semua</button>
+                            <button class="filter-btn" onclick="filterRooms('available')">Tersedia</button>
+                            <button class="filter-btn" onclick="filterRooms('study')">Ruang Belajar</button>
+                            <button class="filter-btn" onclick="filterRooms('lab')">Lab Komputer</button>
+                            <button class="filter-btn" onclick="filterRooms('meeting')">Ruang Rapat</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Pilih Ruang -->
+                    <div class="form-section">
+                        <h5 class="section-title">
+                            <i class="bi bi-1-circle-fill"></i>
+                            Langkah 1: Pilih Ruang yang Tersedia
+                        </h5>
+                        <div class="room-grid" id="roomGrid">
+                            <!-- Rooms will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Pilih Waktu -->
+                    <div class="form-section">
+                        <h5 class="section-title">
+                            <i class="bi bi-2-circle-fill"></i>
+                            Langkah 2: Tentukan Tanggal & Waktu
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold">Tanggal Booking</label>
+                                    <input type="date" class="form-control" id="bookingDate" 
+                                           min="<?php echo date('Y-m-d'); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold">Durasi Penggunaan</label>
+                                    <select class="form-select" id="bookingDuration">
+                                        <option value="1">1 jam</option>
+                                        <option value="2" selected>2 jam</option>
+                                        <option value="3">3 jam</option>
+                                        <option value="4">4 jam</option>
+                                        <option value="5">5 jam</option>
+                                        <option value="6">6 jam</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label fw-semibold">Pilih Waktu Mulai</label>
+                            <div class="time-slots-grid" id="timeSlots">
+                                <!-- Time slots will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Informasi Pribadi -->
+                    <div class="form-section">
+                        <h5 class="section-title">
+                            <i class="bi bi-3-circle-fill"></i>
+                            Langkah 3: Informasi Pribadi
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold">Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="nama" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold">NIM</label>
+                                    <input type="text" class="form-control" id="nim" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-semibold">No. HP</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label fw-semibold">Catatan Tambahan (opsional)</label>
+                            <textarea class="form-control" id="bookingNotes" rows="2" 
+                                      placeholder="Contoh: Butuh whiteboard, akan ada 4 orang..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons text-center mt-3">
+                        <button class="btn-booking" onclick="processBooking()">
+                            <i class="bi bi-calendar-check"></i>
+                            Booking Sekarang & Dapatkan QR Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QR Code Result Section -->
+            <div class="qr-result-section" id="qrResultSection" data-aos="fade-up">
+                <div class="qr-result-header">
+                    <h3>Booking Berhasil!</h3>
+                    <p class="text-muted">Download QR code ini kemudian klik laman Scan dan upload untuk mengakses ruangan!</p>
+                </div>
+                
+                <div class="qr-container">
+                    <div id="qr-code"></div>
+                </div>
+                
+                <div class="booking-info-card">
+                    <div class="info-row">
+                        <span class="info-label">Booking ID:</span>
+                        <span class="info-value" id="bookingIdDisplay">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Nama:</span>
+                        <span class="info-value" id="nameDisplay">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Ruang:</span>
+                        <span class="info-value" id="roomDisplay">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Waktu:</span>
+                        <span class="info-value" id="timeDisplay">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Durasi:</span>
+                        <span class="info-value" id="durationDisplay">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value"><span class="badge bg-success">AKTIF</span></span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="#" class="download-btn" id="downloadQR">
+                        <i class="bi bi-download"></i>
+                        Download QR Code
+                    </a>
+                    <button class="download-btn" onclick="printQRCode()">
+                        <i class="bi bi-printer"></i>
+                        Cetak QR Code
+                    </button>
+                    <button class="download-btn" onclick="newBooking()">
+                        <i class="bi bi-plus-circle"></i>
+                        Booking Lagi
+                    </button>
+                </div>
+                
+                <p class="text-muted mt-3 small">
+                    <i class="bi bi-info-circle"></i>
+                    Simpan QR code ini. Bisa di-upload di halaman <a href="scan.html">Scan QR</a> untuk testing.
+                </p>
+            </div>
+        </div>
+    </div>
+
+   <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h5>RuangBelajarmu</h5>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">
+                        Platform booking dan manajemen fasilitas kampus UII yang terintegrasi.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Tautan Cepat</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Booking Ruang</a></li>
+                        <li><a href="maps.html"><i class="bi bi-chevron-right"></i> Peta Kampus</a></li>
+                        <li><a href="scan.html"><i class="bi bi-chevron-right"></i> Scan QR</a></li>
+                        <li><a href="#fasilitas"><i class="bi bi-chevron-right"></i> Fasilitas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Fasilitas Booking</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Ruang Belajar</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Ruang Diskusi</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Lab Komputer</a></li>
+                        <li><a href="cafetaria.html"><i class="bi bi-chevron-right"></i> Cafetaria</a></li>
+                        <li><a href="books.html"><i class="bi bi-chevron-right"></i> Perpustakaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="footer-links-list">
+                        <li>
+                            <a href="mailto:booking@ruangbelajarmu.uii.ac.id">
+                                <i class="bi bi-envelope"></i>
+                                booking@ruangbelajarmu.uii.ac.id
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+62274551234">
+                                <i class="bi bi-telephone"></i>
+                                (0274) 551-234
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://maps.google.com/?q=UII+Kaliurang+KM+5" target="_blank">
+                                <i class="bi bi-geo-alt"></i>
+                                Kampus UII, Yogyakarta
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom text-center">
+                <p class="mb-2">&copy; 2024 RuangBelajarmu. Platform Booking Fasilitas Kampus UII.</p>
+                <p class="mb-0 small" style="color: rgba(255,255,255,0.5);">
+                    <i class="bi bi-info-circle"></i>
+                    Sistem ini dikembangkan untuk mendukung kegiatan akademik di lingkungan Universitas Islam Indonesia.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // ==================== INITIALIZATION ====================
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-sm');
+            }
+        });
+        
+        // ==================== DATA ====================
+        const rooms = [
+            { id: 'R301', name: 'Ruang 301', type: 'study', capacity: '4 orang', location: 'Lantai 3', status: 'available', features: ['AC', 'Whiteboard', 'WiFi', 'Proyektor'] },
+            { id: 'R302', name: 'Ruang 302', type: 'study', capacity: '6 orang', location: 'Lantai 3', status: 'available', features: ['AC', 'Projector', 'WiFi', 'Speaker'] },
+            { id: 'R303', name: 'Ruang 303', type: 'meeting', capacity: '8 orang', location: 'Lantai 3', status: 'available', features: ['AC', 'TV', 'Sound System', 'Whiteboard'] },
+            { id: 'R304', name: 'Ruang 304', type: 'study', capacity: '4 orang', location: 'Lantai 3', status: 'available', features: ['AC', 'WiFi', 'Meja Panjang'] },
+            { id: 'R305', name: 'Ruang 305', type: 'study', capacity: '6 orang', location: 'Lantai 3', status: 'booked', features: ['AC', 'Whiteboard', 'WiFi'] },
+            { id: 'LAB1', name: 'Lab Komputer 1', type: 'lab', capacity: '20 orang', location: 'Lantai 2', status: 'available', features: ['30 PC', 'Projector', 'LAN', 'AC', 'WiFi'] },
+            { id: 'LAB2', name: 'Lab Komputer 2', type: 'lab', capacity: '15 orang', location: 'Lantai 2', status: 'available', features: ['20 PC', '3D Printer', 'WiFi', 'AC'] },
+            { id: 'LAB3', name: 'Lab Komputer 3', type: 'lab', capacity: '25 orang', location: 'Lantai 2', status: 'available', features: ['35 PC', 'Projector', 'LAN', 'WiFi'] },
+            { id: 'R201', name: 'Ruang 201', type: 'study', capacity: '10 orang', location: 'Lantai 2', status: 'available', features: ['AC', 'Whiteboard', 'WiFi', 'TV'] },
+            { id: 'R202', name: 'Ruang 202', type: 'study', capacity: '8 orang', location: 'Lantai 2', status: 'limited', features: ['AC', 'Whiteboard', 'WiFi'] },
+            { id: 'R203', name: 'Ruang 203', type: 'meeting', capacity: '12 orang', location: 'Lantai 2', status: 'available', features: ['AC', 'Projector', 'Sound System', 'WiFi'] },
+            { id: 'R204', name: 'Ruang 204', type: 'study', capacity: '6 orang', location: 'Lantai 2', status: 'booked', features: ['AC', 'WiFi'] },
+            { id: 'AULA1', name: 'Aula Kecil', type: 'meeting', capacity: '30 orang', location: 'Lantai 1', status: 'available', features: ['AC', 'Projector', 'Sound System', 'Panggung', 'WiFi'] },
+            { id: 'R101', name: 'Ruang 101', type: 'study', capacity: '8 orang', location: 'Lantai 1', status: 'available', features: ['AC', 'Whiteboard', 'WiFi'] },
+            { id: 'R102', name: 'Ruang 102', type: 'study', capacity: '6 orang', location: 'Lantai 1', status: 'available', features: ['AC', 'WiFi'] },
+        ];
+
+        // ==================== GLOBAL VARIABLES ====================
+        let selectedRoom = null;
+        let selectedTimeSlot = null;
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // ==================== GOOGLE SHEETS INTEGRATION ====================
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbymhBKxKvKzJFOEb9X_xDZhHSwykois66ER3_0RyfCCFJTjrAnhJYxlwZ6EHzKk2_xIDg/exec';
+
+        // ==================== FUNGSI NOTIFIKASI ====================
+        function showNotification(message, type = 'success') {
+            const oldNotification = document.querySelector('.notification');
+            if (oldNotification) oldNotification.remove();
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'error' ? 'bi-exclamation-circle' : 'bi-info-circle'} me-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideIn 0.3s ease reverse';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        // ==================== FUNGSI LOADING ====================
+        function showLoading(message = 'Mengirim data ke server...') {
+            const overlay = document.createElement('div');
+            overlay.className = 'loading-overlay';
+            overlay.id = 'loadingOverlay';
+            overlay.innerHTML = `
+                <div class="spinner"></div>
+                <p class="mt-3">${message}</p>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) overlay.remove();
+        }
+
+        // ==================== FUNGSI KIRIM KE GOOGLE SHEETS ====================
+        async function sendToGoogleSheets(bookingData) {
+            console.log('📤 Mengirim data ke Google Sheets:', bookingData);
+            
+            const payload = {
+                bookingid: bookingData.id,
+                nama: bookingData.nama,
+                nim: bookingData.nim,
+                email: bookingData.email,
+                nohp: bookingData.phone,
+                ruangid: bookingData.room.id,
+                namaruang: bookingData.room.name,
+                lokasi: bookingData.room.location,
+                tanggal: bookingData.date,
+                waktu: bookingData.time,
+                durasijam: bookingData.duration,
+                catatan: bookingData.notes || '',
+                status: 'Konfirmasi'
+            };
+            
+            try {
+                const formData = new FormData();
+                for (const key in payload) {
+                    formData.append(key, payload[key]);
+                }
+                
+                const response = await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                });
+                
+                console.log('✅ Response dari Google Sheets:', response);
+                
+                return { 
+                    success: true, 
+                    message: 'Data berhasil dikirim ke Google Sheets!' 
+                };
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                return { 
+                    success: false, 
+                    message: 'Gagal mengirim data: ' + error.message 
+                };
+            }
+        }
+
+        // ==================== ROOM FUNCTIONS ====================
+        function loadRooms() {
+            const container = document.getElementById('roomGrid');
+            container.innerHTML = '';
+            
+            let filteredRooms = rooms.filter(room => {
+                if (currentSearch) {
+                    const searchStr = `${room.name} ${room.location} ${room.features.join(' ')} ${room.type} ${room.capacity}`.toLowerCase();
+                    if (!searchStr.includes(currentSearch)) {
+                        return false;
+                    }
+                }
+                
+                if (currentFilter !== 'all') {
+                    if (currentFilter === 'available' && room.status !== 'available') {
+                        return false;
+                    } else if (currentFilter !== 'available' && room.type !== currentFilter) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            if (filteredRooms.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-4">
+                        <i class="bi bi-search display-1 text-muted"></i>
+                        <h5 class="mt-3">Tidak ada ruangan ditemukan</h5>
+                        <p class="text-muted">Coba cari dengan kata kunci lain atau gunakan filter yang berbeda</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredRooms.forEach(room => {
+                const card = document.createElement('div');
+                card.className = `room-card ${room.status === 'booked' ? 'booked' : ''} ${selectedRoom === room.id ? 'selected' : ''}`;
+                
+                if (room.status !== 'booked') {
+                    card.onclick = () => selectRoom(room.id);
+                }
+                
+                let statusText, statusClass;
+                switch(room.status) {
+                    case 'available':
+                        statusText = 'TERSEDIA';
+                        statusClass = 'status-available';
+                        break;
+                    case 'limited':
+                        statusText = 'TERBATAS';
+                        statusClass = 'status-limited';
+                        break;
+                    case 'booked':
+                        statusText = 'TERISI';
+                        statusClass = 'status-booked';
+                        break;
+                }
+                
+                card.innerHTML = `
+                    <div class="room-header">
+                        <h6 class="room-name">
+                            <i class="bi ${room.type === 'lab' ? 'bi-pc-display' : room.type === 'meeting' ? 'bi-people' : 'bi-door-closed'}"></i>
+                            ${room.name}
+                        </h6>
+                        <div class="room-status ${statusClass}">
+                            <i class="bi ${room.status === 'available' ? 'bi-check-circle' : room.status === 'limited' ? 'bi-exclamation-circle' : 'bi-x-circle'}"></i>
+                            ${statusText}
+                        </div>
+                    </div>
+                    <div class="room-location">
+                        <i class="bi bi-geo-alt"></i>
+                        ${room.location} • ${room.capacity}
+                    </div>
+                    <div class="room-features">
+                        ${room.features.map(feature => `
+                            <span class="feature-tag">
+                                <i class="bi bi-check"></i>
+                                ${feature}
+                            </span>
+                        `).join('')}
+                    </div>
+                    ${selectedRoom === room.id ? `
+                        <div class="mt-2 pt-2 border-top">
+                            <span class="badge bg-success">
+                                <i class="bi bi-check-circle"></i> DIPILIH
+                            </span>
+                        </div>
+                    ` : ''}
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        function filterRooms(filterType) {
+            currentFilter = filterType;
+            loadRooms();
+        }
+
+        function selectRoom(roomId) {
+            selectedRoom = roomId;
+            loadRooms();
+            
+            document.querySelector('.form-section:nth-child(2)').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+            
+            showNotification(`Ruang ${roomId} dipilih`, 'success');
+        }
+
+        // ==================== TIME SLOTS ====================
+        function generateTimeSlots() {
+            const container = document.getElementById('timeSlots');
+            container.innerHTML = '';
+            
+            const slots = [];
+            for (let hour = 8; hour <= 20; hour++) {
+                slots.push(`${hour.toString().padStart(2, '0')}:00`);
+            }
+            
+            slots.forEach(slot => {
+                const timeElement = document.createElement('div');
+                timeElement.className = 'time-slot';
+                timeElement.textContent = slot;
+                timeElement.onclick = () => selectTimeSlot(slot, timeElement);
+                
+                if (Math.random() > 0.7 && selectedRoom) {
+                    const room = rooms.find(r => r.id === selectedRoom);
+                    if (room && room.status !== 'booked') {
+                        timeElement.classList.add('disabled');
+                        timeElement.onclick = null;
+                    }
+                }
+                
+                container.appendChild(timeElement);
+            });
+        }
+
+        function selectTimeSlot(slot, element) {
+            selectedTimeSlot = slot;
+            
+            document.querySelectorAll('#timeSlots .time-slot').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            
+            document.querySelector('.form-section:nth-child(3)').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+            
+            showNotification(`Waktu ${slot} dipilih`, 'success');
+        }
+
+        // ==================== PROSES BOOKING UTAMA ====================
+        async function processBooking() {
+            const nama = document.getElementById('nama').value;
+            const nim = document.getElementById('nim').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('bookingDate').value;
+            const duration = document.getElementById('bookingDuration').value;
+            const notes = document.getElementById('bookingNotes').value;
+            
+            if (!nama || !nim || !email || !phone || !date) {
+                showNotification('Harap lengkapi semua informasi pribadi', 'error');
+                return;
+            }
+            
+            if (!selectedRoom) {
+                showNotification('Pilih ruang terlebih dahulu', 'error');
+                return;
+            }
+            
+            if (!selectedTimeSlot) {
+                showNotification('Pilih waktu booking terlebih dahulu', 'error');
+                return;
+            }
+            
+            const room = rooms.find(r => r.id === selectedRoom);
+            
+            if (room.status === 'booked') {
+                showNotification('Maaf, ruangan ini sudah tidak tersedia', 'error');
+                return;
+            }
+            
+            const bookingId = 'BK' + Date.now().toString().slice(-6);
+            
+            const bookingData = {
+                id: bookingId,
+                type: 'room',
+                room: room,
+                nama: nama,
+                nim: nim,
+                email: email,
+                phone: phone,
+                date: date,
+                time: selectedTimeSlot,
+                duration: duration,
+                notes: notes,
+                timestamp: new Date().toISOString(),
+                status: 'active'
+            };
+            
+            showLoading('Mengirim booking ke sistem...');
+            
+            try {
+                const sheetsResult = await sendToGoogleSheets(bookingData);
+                
+                hideLoading();
+                
+                if (sheetsResult.success) {
+                    showNotification('🎉 Booking berhasil! Data telah disimpan ke spreadsheet.', 'success');
+                    showQRCodeResult(bookingData);
+                    saveToLocalStorage(bookingData);
+                    
+                } else {
+                    showNotification('⚠️ Data disimpan lokal. Coba refresh halaman dan coba lagi.', 'warning');
+                    showQRCodeResult(bookingData);
+                    saveToLocalStorage(bookingData);
+                }
+                
+            } catch (error) {
+                hideLoading();
+                showNotification('❌ Error sistem: ' + error.message, 'error');
+            }
+        }
+
+        // ==================== TAMPILKAN QR CODE ====================
+        function showQRCodeResult(booking) {
+            document.getElementById('bookingIdDisplay').textContent = booking.id;
+            document.getElementById('nameDisplay').textContent = booking.nama;
+            document.getElementById('roomDisplay').textContent = `${booking.room.name} (${booking.room.location})`;
+            document.getElementById('timeDisplay').textContent = 
+                `${new Date(booking.date).toLocaleDateString('id-ID')} ${booking.time}`;
+            document.getElementById('durationDisplay').textContent = `${booking.duration} jam`;
+            
+            const qrContainer = document.getElementById('qr-code');
+            qrContainer.innerHTML = '';
+            
+            const qrData = `RUANGBELAJARMU:BK:${booking.id}:${booking.room.id}:${booking.date}:${booking.time}`;
+            
+            new QRCode(qrContainer, {
+                text: qrData,
+                width: 256,
+                height: 256,
+                colorDark: "#1a5f23",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            const downloadBtn = document.getElementById('downloadQR');
+            downloadBtn.onclick = function(e) {
+                e.preventDefault();
+                downloadQRCode(booking.id);
+            };
+            
+            document.getElementById('contentTempat').style.display = 'none';
+            document.getElementById('qrResultSection').style.display = 'block';
+            
+            document.getElementById('qrResultSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ==================== DOWNLOAD QR CODE ====================
+        function downloadQRCode(bookingId) {
+            const qrCanvas = document.querySelector('#qr-code canvas');
+            if (!qrCanvas) {
+                showNotification('QR code belum siap', 'error');
+                return;
+            }
+            
+            const dataURL = qrCanvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = dataURL;
+            link.download = `QR_Booking_${bookingId}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification('✅ QR Code berhasil didownload!');
+        }
+
+        function printQRCode() {
+            window.print();
+            showNotification('🖨️ Siap untuk mencetak QR Code');
+        }
+
+        // ==================== LOCAL STORAGE ====================
+        function saveToLocalStorage(booking) {
+            try {
+                let bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+                bookings.push(booking);
+                localStorage.setItem('userBookings', JSON.stringify(bookings));
+                console.log('Booking saved to localStorage:', booking);
+            } catch (e) {
+                console.error('Error saving to localStorage:', e);
+            }
+        }
+
+        // ==================== NEW BOOKING ====================
+        function newBooking() {
+            selectedRoom = null;
+            selectedTimeSlot = null;
+            document.getElementById('nama').value = '';
+            document.getElementById('nim').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('bookingNotes').value = '';
+            document.getElementById('roomSearchInput').value = '';
+            currentSearch = '';
+            
+            document.getElementById('qrResultSection').style.display = 'none';
+            document.getElementById('contentTempat').style.display = 'block';
+            
+            loadRooms();
+            generateTimeSlots();
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            showNotification('📝 Form booking telah direset');
+        }
+
+        // ==================== INITIALIZE ON LOAD ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookingLink = document.querySelector('.nav-item:nth-child(2) .nav-link');
+            if (bookingLink) {
+                bookingLink.classList.add('active');
+            }
+            
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            document.getElementById('bookingDate').value = tomorrow.toISOString().split('T')[0];
+            
+            loadRooms();
+            generateTimeSlots();
+            
+            document.getElementById('roomSearchInput').addEventListener('input', function() {
+                currentSearch = this.value.toLowerCase();
+                loadRooms();
+            });
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

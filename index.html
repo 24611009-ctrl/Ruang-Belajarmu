@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuangBelajarmu | Platform Booking Ruang Belajar </title>
+    
+    <!-- SEO & Accessibility Meta -->
+    <meta name="description" content="Platform booking ruang belajar  dengan sistem reservasi otomatis, peta kampus interaktif, dan manajemen fasilitas kampus">
+    <meta name="keywords" content="Booking ruang belajar, reservasi, ruang diskusi, perpustakaan, kampus, Yogyakarta">
+    <meta name="author" content="RuangBelajarmu Team">
+    <meta name="theme-color" content="#1a5f23">
+    
+    <!-- Core Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Animation Libraries -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <div class="container">
+        <!-- Brand with Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <div class="logo-container me-2">
+                <img src="https://i.pinimg.com/736x/15/b1/71/15b17137e36ff051b32609885b4a23a9.jpg" 
+                     alt="RuangBelajarmu Logo" 
+                     class="navbar-logo rounded-circle border border-success">
+            </div>
+            <span class="fw-bold fs-4 text-success">RuangBelajarmu</span>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <!-- Beranda - ACTIVE -->
+                <li class="nav-item mx-1">
+                    <a class="nav-link active" href="index.html">
+                        <i class="bi bi-house-door me-1"></i>Beranda
+                    </a>
+                </li>
+
+                <!-- Booking -->
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="booking.html">
+                        <i class="bi bi-calendar-check me-1"></i>Booking
+                    </a>
+                </li>
+
+                <!-- Fasilitas Dropdown -->
+                <li class="nav-item dropdown mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-building me-1"></i>Fasilitas
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="cafetaria.html">
+                                <i class="bi bi-cup-hot me-2"></i>Cafetaria
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="books.html">
+                                <i class="bi bi-book me-2"></i>Buku
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Scan -->
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="scan.html">
+                        <i class="bi bi-qr-code-scan me-1"></i>Scan
+                    </a>
+                </li>
+
+                <!-- Maps -->
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="maps.html">
+                        <i class="bi bi-geo-alt me-1"></i>Maps
+                    </a>
+                </li>
+
+                <!-- Layanan Dropdown - REVISED -->
+                <li class="nav-item dropdown mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-headset me-1"></i>Layanan
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="about-us.html">
+                                <i class="bi bi-info-circle me-2"></i>Tentang Kami
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="kontak.html">
+                                <i class="bi bi-envelope me-2"></i>Kontak
+                            </a>
+                        </li>
+                        <!-- Bantuan dihapus karena sudah tercakup di Kontak -->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section - REVISED -->
+    <section class="hero-section" id="home" data-aos="fade-up">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="bi bi-lightning-charge"></i>
+                   RUANGBELAJARMU
+                </div>
+                <h1>Booking Ruang Belajar Jadi Lebih Mudah</h1>
+                <p class="hero-subtitle">
+                    Sistem reservasi terintegrasi untuk ruang belajar dan diskusi. 
+                    Booking cepat, peta real-time, dan manajemen yang efisien.
+                </p>
+                
+                <!-- Timeline Booking - NEW -->
+                <div class="booking-timeline" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Pilih Ruang</h5>
+                            <p>Temukan ruang yang tersedia berdasarkan waktu dan kebutuhan</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>Reservasi Online</h5>
+                            <p>Booking dalam 3 klik tanpa perlu antri di lokasi</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Scan & Masuk</h5>
+                            <p>Scan QR code untuk check-in dan akses ruang</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Buttons - ENHANCED -->
+                <div class="hero-cta" data-aos="fade-up" data-aos-delay="300">
+                    <a href="booking.html" class="btn btn-success btn-lg px-5 py-3">
+                        <i class="bi bi-calendar-check me-2"></i>
+                        Mulai Booking Sekarang
+                    </a>
+                    <a href="maps.html" class="btn btn-outline-success btn-lg px-5 py-3 ms-3">
+                        <i class="bi bi-map me-2"></i>
+                        Lokasi
+                    </a>
+                </div>
+                
+                <!-- Quick Stats - ENHANCED -->
+                <div class="stats-grid">
+                    <div class="stat-card highlight">
+                        <div class="stat-icon">
+                            <i class="bi bi-door-open"></i>
+                        </div>
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">Ruang Tersedia</div>
+                        <div class="stat-subtext">Termasuk 24 ruang VIP</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+                        <div class="stat-value">15 min</div>
+                        <div class="stat-label">Waktu Booking</div>
+                        <div class="stat-subtext">Rata-rata proses</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-stars"></i>
+                        </div>
+                        <div class="stat-value">4,8/5</div>
+                        <div class="stat-label">Kepuasan</div>
+                        <div class="stat-subtext">Dari 2.500+ pengguna</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fasilitas Utama -->
+    <section class="services-section" id="fasilitas" data-aos="fade-up">
+        <div class="container">
+            <div class="section-header">
+                <h2>Fasilitas & Layanan</h2>
+                <p>Kelola dan akses semua fasilitas dalam satu platform terintegrasi</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Booking Ruang -->
+                <div class="service-card" onclick="window.location.href='booking.html'">
+                    <div class="service-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <h4>Booking Ruang</h4>
+                    <p>Reservasi ruang belajar, ruang diskusi, lab komputer, dan ruang pertemuan dengan sistem otomatis</p>
+                    <a href="booking.html" class="btn btn-outline-success mt-3">Booking Sekarang</a>
+                </div>
+                
+                <!-- Peta Kampus -->
+                <div class="service-card" onclick="window.location.href='maps.html'">
+                    <div class="service-icon">
+                        <i class="bi bi-map"></i>
+                    </div>
+                    <h4>Peta Interaktif</h4>
+                    <p>Navigasi kampus dengan peta real-time, info ketersediaan tempat, dan lokasi fasilitas</p>
+                    <a href="maps.html" class="btn btn-outline-success mt-3">Lihat Peta</a>
+                </div>
+                
+                <!-- Scan QR -->
+                <div class="service-card" onclick="window.location.href='scan.html'">
+                    <div class="service-icon">
+                        <i class="bi bi-qr-code-scan"></i>
+                    </div>
+                    <h4>Scan QR Check-in</h4>
+                    <p>Check-in cepat menggunakan QR code untuk akses ruang yang sudah di-booking</p>
+                    <a href="scan.html" class="btn btn-outline-success mt-3">Scan Sekarang</a>
+                </div>
+                
+                <!-- Koleksi Buku -->
+                <div class="service-card" onclick="window.location.href='books.html'">
+                    <div class="service-icon">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <h4>Koleksi Buku</h4>
+                    <p>Akses katalog buku perpustakaan untuk mendukung aktivitas belajar dan penelitian</p>
+                    <a href="books.html" class="btn btn-outline-success mt-3">Lihat Koleksi</a>
+                </div>
+                
+                <!-- Cafetaria -->
+                <div class="service-card" onclick="window.location.href='cafetaria.html'">
+                    <div class="service-icon">
+                        <i class="bi bi-cup-hot"></i>
+                    </div>
+                    <h4>Cafetaria Kampus</h4>
+                    <p>Cek menu, jam operasional, dan ketersediaan tempat di cafetaria kampus</p>
+                    <a href="cafetaria.html" class="btn btn-outline-success mt-3">Lihat Menu</a>
+                </div>
+                
+                <!-- Layanan Digital -->
+                <div class="service-card" onclick="openDigitalLibrary()">
+                    <div class="service-icon">
+                        <i class="bi bi-laptop"></i>
+                    </div>
+                    <h4>Layanan Digital</h4>
+                    <p>Akses e-book, jurnal online, dan sumber daya digital untuk mendukung pembelajaran</p>
+                    <button class="btn btn-outline-success mt-3">Akses</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIAL SECTION ==================== -->
+    <section class="testimonial-section py-5">
+        <div class="container">
+            <!-- Header -->
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="badge bg-success-subtle text-success mb-3 px-3 py-2">
+                    <i class="bi bi-chat-quote-fill me-2"></i>TESTIMONI PENGGUNA
+                </span>
+                <h2 class="fw-bold mb-3">Apa Kata Mereka Tentang <span class="text-success">RuangBelajarmu</span></h2>
+                <p class="text-muted mx-auto" style="max-width: 600px;">
+                    Ribuan mahasiswa dan dosen telah merasakan kemudahan booking ruang belajar dengan sistem kami
+                </p>
+            </div>
+
+            <!-- Testimonial Cards -->
+            <div class="row g-4">
+                <!-- Testimoni 1 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card h-100">
+                        <div class="rating mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <span class="ms-2 small text-muted">5.0</span>
+                        </div>
+                        <p class="testimonial-text mb-4">
+                            "Sebelum ada RuangBelajarmu, antrian booking ruang bisa 1 jam. Sekarang 3 klik selesai. 
+                            QR check-in-nya genial!"
+                        </p>
+                        <div class="testimonial-author mt-auto">
+                            <div class="d-flex align-items-center">
+                                <div class="author-avatar me-3">
+                                    <img src="https://ui-avatars.com/api/?name=Andi+P&background=1a5f23&color=fff&size=100" 
+                                         alt="Andi Pratama" class="rounded-circle" width="50" height="50">
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Andi Pratama</h6>
+                                    <p class="text-muted small mb-0">Teknik Informatika 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimoni 2 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card h-100">
+                        <div class="rating mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-half text-warning"></i>
+                            <span class="ms-2 small text-muted">4.5</span>
+                        </div>
+                        <p class="testimonial-text mb-4">
+                            "Interface-nya user friendly banget! Meski nggak terlalu melek teknologi, saya bisa navigasi semua fitur dengan mudah."
+                        </p>
+                        <div class="testimonial-author mt-auto">
+                            <div class="d-flex align-items-center">
+                                <div class="author-avatar me-3">
+                                    <img src="https://ui-avatars.com/api/?name=Sari+D&background=2e7d32&color=fff&size=100" 
+                                         alt="Sari Dewi" class="rounded-circle" width="50" height="50">
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Sari Dewi</h6>
+                                    <p class="text-muted small mb-0">Kedokteran 2021</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimoni 3 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card h-100">
+                        <div class="rating mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <span class="ms-2 small text-muted">5.0</span>
+                        </div>
+                        <p class="testimonial-text mb-4">
+                            "Sebagai dosen, sistem ini memudahkan koordinasi bimbingan skripsi. 
+                            Mahasiswa bisa booking sendiri, saya approve. Efisiensi 10x!"
+                        </p>
+                        <div class="testimonial-author mt-auto">
+                            <div class="d-flex align-items-center">
+                                <div class="author-avatar me-3">
+                                    <img src="https://ui-avatars.com/api/?name=Dr+Budi&background=43a047&color=fff&size=100" 
+                                         alt="Dr. Budi" class="rounded-circle" width="50" height="50">
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Dr. Budi Santoso, M.Kom.</h6>
+                                    <p class="text-muted small mb-0">Dosen Teknik Informatika</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges mt-5 pt-4 text-center" data-aos="fade-up">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <div class="trust-item">
+                            <i class="bi bi-shield-check fs-1 text-success"></i>
+                            <p class="mb-0 small">100% Sistem Terpercaya</p>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="trust-item">
+                            <i class="bi bi-people fs-1 text-success"></i>
+                            <p class="mb-0 small">2,500+ Pengguna</p>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="trust-item">
+                            <i class="bi bi-award fs-1 text-success"></i>
+                            <p class="mb-0 small">98% Kepuasan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Quick Access -->
+    <section class="quick-access-section" data-aos="fade-up">
+        <div class="container">
+            <div class="section-header">
+                <h2>⚡ Akses Cepat Booking</h2>
+                <p>Layanan yang paling sering digunakan untuk booking dan manajemen fasilitas</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="bi bi-calendar-plus fs-1 text-success"></i>
+                            </div>
+                            <h5 class="card-title">Booking Instan</h5>
+                            <p class="card-text text-muted">Booking ruang dalam 3 langkah mudah. Pilih, reservasi, konfirmasi.</p>
+                            <a href="booking.html" class="btn btn-success w-100">Booking Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="bi bi-qr-code-scan fs-1 text-success"></i>
+                            </div>
+                            <h5 class="card-title">Scan QR Check-in</h5>
+                            <p class="card-text text-muted">Check-in cepat dengan scan QR code untuk akses ruang</p>
+                            <a href="scan.html" class="btn btn-success w-100">Scan Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="bi bi-geo-alt fs-1 text-success"></i>
+                            </div>
+                            <h5 class="card-title">Peta Kampus</h5>
+                            <p class="card-text text-muted">Temukan lokasi ruang dan fasilitas dengan peta interaktif</p>
+                            <a href="maps.html" class="btn btn-success w-100">Lihat Peta</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Booking Info -->
+            <div class="row mt-5" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-12">
+                    <div class="card border-success">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h4 class="text-success">Butuh bantuan untuk booking?</h4>
+                                    <p class="mb-0">Tim support kami siap membantu Anda 24/7 untuk proses booking dan penggunaan fasilitas kampus.</p>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <a href="kontak.html" class="btn btn-outline-success btn-lg">Hubungi Support</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h5>RuangBelajarmu</h5>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">
+                        Platform booking dan manajemen fasilitas yang terintegrasi.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Tautan Cepat</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Booking Ruang</a></li>
+                        <li><a href="maps.html"><i class="bi bi-chevron-right"></i> Peta Kampus</a></li>
+                        <li><a href="scan.html"><i class="bi bi-chevron-right"></i> Scan QR</a></li>
+                        <li><a href="#fasilitas"><i class="bi bi-chevron-right"></i> Fasilitas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Fasilitas Booking</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Ruang Belajar</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Ruang Diskusi</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Lab Komputer</a></li>
+                        <li><a href="cafetaria.html"><i class="bi bi-chevron-right"></i> Cafetaria</a></li>
+                        <li><a href="books.html"><i class="bi bi-chevron-right"></i> Perpustakaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="footer-links-list">
+                        <li>
+                            <a href="mailto:booking@ruangbelajarmu.uii.ac.id">
+                                <i class="bi bi-envelope"></i>
+                                booking@ruangbelajarmu.uii.ac.id
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+62274551234">
+                                <i class="bi bi-telephone"></i>
+                                (0274) 551-234
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://maps.google.com/?q=UII+Kaliurang+KM+5" target="_blank">
+                                <i class="bi bi-geo-alt"></i>
+                                Jalan Kaliurang, Yogyakarta
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom text-center">
+                <p class="mb-2">&copy; 2024 RuangBelajarmu. Platform Booking.</p>
+                <p class="mb-0 small" style="color: rgba(255,255,255,0.5);">
+                    <i class="bi bi-info-circle"></i>
+                    Sistem ini dikembangkan untuk mendukung kegiatan akademik di lingkungan Universitas Islam Indonesia.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Function untuk digital library
+        function openDigitalLibrary() {
+            alert('Layanan digital akan segera tersedia!');
+        }
+        
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

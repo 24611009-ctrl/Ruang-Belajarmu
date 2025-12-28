@@ -1,0 +1,378 @@
+:root {
+    /* WARNA HIJAU UTAMA */
+    --primary-green: #2E8B57;
+    --primary-green-dark: #1E6B47;
+    --primary-green-light: #E8F5E9;
+    --accent-mint: #66BB6A;
+    --accent-sage: #81C784;
+    --accent-yellow: #FFD54F;
+    --accent-coral: #FF8A65;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+    min-height: 100vh;
+    color: #1b5e20;
+    padding-top: 80px;
+}
+
+/* Navigation */
+.navbar {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--primary-green);
+    box-shadow: 0 2px 20px rgba(46, 139, 87, 0.1);
+    padding: 0.8rem 0;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--primary-green-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.7rem 1.2rem !important;
+    border-radius: 25px;
+    color: #2e7d32 !important;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-link:hover {
+    background: rgba(46, 139, 87, 0.1);
+    color: var(--primary-green-dark) !important;
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(46, 139, 87, 0.2);
+}
+
+/* Canteen Header */
+.canteen-header {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.canteen-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255,255,255,0.1) 0%, transparent 40%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M20,30 Q50,10 80,30 T100,30 L100,70 Q80,90 50,70 T20,70 Z" fill="white"/></svg>');
+    background-size: cover;
+}
+
+/* Special Offer */
+.special-offer {
+    background: linear-gradient(135deg, var(--accent-yellow) 0%, #ffca28 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 2px dashed var(--primary-green);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* Menu Categories */
+.category-nav {
+    background: white;
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(30, 107, 71, 0.05);
+    border: 1px solid #c8e6c9;
+}
+
+.category-btn {
+    background: transparent;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    color: #4c8c4a;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.category-btn:hover {
+    background: var(--primary-green-light);
+    color: var(--primary-green-dark);
+}
+
+.category-btn.active {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: white;
+}
+
+/* Menu Items */
+.menu-item {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(30, 107, 71, 0.05);
+    transition: all 0.3s;
+    height: 100%;
+    border: 2px solid transparent;
+    margin-bottom: 1.5rem;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(46, 139, 87, 0.15);
+    border-color: var(--primary-green);
+}
+
+.item-image {
+    height: 180px;
+    background: var(--primary-green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+}
+
+.item-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--primary-green-dark);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.item-rating {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(30, 107, 71, 0.8);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+/* Cart */
+.cart-container {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(30, 107, 71, 0.08);
+    border-top: 4px solid var(--primary-green);
+    border: 1px solid #c8e6c9;
+    position: sticky;
+    top: 100px;
+}
+
+.cart-item {
+    background: #f1f8e9;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 3px solid var(--primary-green);
+}
+
+/* Buttons */
+.btn-green {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-green:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+    color: white;
+}
+
+.btn-green:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #cccccc !important;
+    border-color: #cccccc !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn-green-outline {
+    background: transparent;
+    color: var(--primary-green-dark);
+    border: 2px solid var(--primary-green);
+    border-radius: 10px;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-green-outline:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Order Summary */
+.order-summary {
+    background: #f1f8e9;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border: 1px solid #c8e6c9;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(135deg, #1e6b47 0%, #2E8B57 100%);
+    color: white;
+    padding: 3rem 0 1.5rem;
+    margin-top: 4rem;
+}
+
+/* Debug Panel */
+.debug-panel {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 9999;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* Modal Styles */
+.modal-green-header {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: white;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #4CAF50;
+}
+
+/* Utility */
+.text-green {
+    color: var(--primary-green-dark) !important;
+}
+
+.price {
+    color: var(--primary-green-dark);
+    font-weight: 700;
+}
+
+/* Animation for new items */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-item {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .canteen-header {
+        padding: 2rem 0;
+    }
+    
+    .category-nav {
+        overflow-x: auto;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    
+    .category-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .cart-container {
+        position: static;
+        margin-top: 2rem;
+    }
+    
+    .item-image {
+        height: 150px;
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        padding-top: 70px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .nav-link span {
+        display: none;
+    }
+    
+    .nav-link i {
+        font-size: 1.2rem;
+    }
+    
+    .canteen-header {
+        padding: 1.5rem 0;
+    }
+    
+    .canteen-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .canteen-header p {
+        font-size: 1rem;
+    }
+}

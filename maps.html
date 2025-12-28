@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lokasi Cabang - Ruang Belajarmu</title>
+    
+    <!-- CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/maps.css">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation - Sama dengan index.html -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <!-- Brand with Logo -->
+            <a class="navbar-brand" href="index.html">
+                <div class="logo-container me-2">
+                    <img src="https://i.pinimg.com/736x/15/b1/71/15b17137e36ff051b32609885b4a23a9.jpg" 
+                         alt="RuangBelajarmu Logo" 
+                         class="navbar-logo">
+                </div>
+                <span class="fw-bold fs-4 text-success">RuangBelajarmu</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="booking.html">
+                            <i class="bi bi-calendar-check me-1"></i>Booking
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-building me-1"></i>Fasilitas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="cafetaria.html"><i class="bi bi-cup-hot me-2"></i>Cafetaria</a></li>
+                            <li><a class="dropdown-item" href="books.html"><i class="bi bi-book me-2"></i>Buku</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="scan.html">
+                            <i class="bi bi-qr-code-scan me-1"></i>Scan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="maps.html">
+                            <i class="bi bi-geo-alt me-1"></i>Maps
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-headset me-1"></i>Layanan
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="about-us.html"><i class="bi bi-info-circle me-2"></i>Tentang Kami</a></li>
+                            <li><a class="dropdown-item" href="kontak.html"><i class="bi bi-envelope me-2"></i>Kontak</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="maps-main">
+        <div class="container">
+            <!-- Header Page -->
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    Lokasi Cabang Yogyakarta
+                </h1>
+                <p class="page-subtitle">Temukan dan kunjungi cabang kami di Yogyakarta</p>
+            </div>
+            
+            <!-- Main Content Grid -->
+            <div class="maps-container">
+                <!-- Left Column: Google Maps Embed -->
+                <div class="map-wrapper">
+                    <div class="map-frame">
+                        <iframe 
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.345462198771!2d110.41080021532054!3d-7.687892994380147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a3b11d6a2c5d9%3A0x3b4e59bd3c9fce38!2sUniversitas%20Islam%20Indonesia%20(UII)%20Kampus%20Terpadu!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+  width="100%" 
+  height="100%" 
+  style="border:0;" 
+  allowfullscreen="" 
+  loading="lazy" 
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+                    </div>
+                    <div class="map-note">
+                        <i class="bi bi-info-circle"></i>
+                        <span>Anda dapat berinteraksi langsung dengan peta di atas</span>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Information Card -->
+                <div class="info-wrapper">
+                    <div class="info-card">
+                        <!-- Card Header -->
+                        <div class="card-header">
+                            <div class="location-header">
+                                <div class="location-icon">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                                <div>
+                                    <h2>Ruang Belajarmu Yogyakarta</h2>
+                                    <div class="status-badge open">
+                                        <i class="bi bi-circle-fill"></i>
+                                        Buka Sekarang
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="hours-info">
+                                <i class="bi bi-clock"></i>
+                                08:00 - 22:00 WIB
+                            </p>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <!-- Contact Info -->
+                            <div class="contact-section">
+                                <div class="contact-item">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <div>
+                                        <h3>Alamat Lengkap</h3>
+                                        <p>Jl. Kaliurang Sleman, Yogyakarta</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <div>
+                                        <h3>Telepon</h3>
+                                        <p>(0274) 9876-543</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Facilities -->
+                            <div class="facilities-section">
+                                <h3><i class="bi bi-stars"></i> Fasilitas</h3>
+                                <div class="facilities-grid">
+                                    <div class="facility">
+                                        <i class="bi bi-wifi"></i>
+                                        <span>WiFi Cepat</span>
+                                    </div>
+                                    <div class="facility">
+                                        <i class="bi bi-pc-display"></i>
+                                        <span>Lab Komputer</span>
+                                    </div>
+                                    <div class="facility">
+                                        <i class="bi bi-book"></i>
+                                        <span>Perpustakaan</span>
+                                    </div>
+                                    <div class="facility">
+                                        <i class="bi bi-cup-hot"></i>
+                                        <span>Cafetaria</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="action-section">
+                                <a href="https://maps.google.com/?q=UII+Kaliurang+KM+5" 
+                                   target="_blank" 
+                                   class="btn btn-primary">
+                                    <i class="bi bi-google"></i>
+                                    Buka di Google Maps
+                                </a>
+                                
+                                <button 
+                                    onclick="navigator.clipboard.writeText('Jalan Kaliurang, Sleman, Yogyakarta')"
+                                    class="btn btn-outline">
+                                    <i class="bi bi-share"></i>
+                                    Bagikan Lokasi
+                                </button>
+                                
+                                <a href="booking.html?type=room" class="btn btn-success">
+                                    <i class="bi bi-calendar-check"></i>
+                                    Booking Sekarang
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Footer -->
+                        <div class="card-footer">
+                            <div class="note-section">
+                                <i class="bi bi-lightbulb"></i>
+                                <p>Ingin belajar di tempat yang nyaman? Booking tempatmu sekarang!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer - Sama dengan index.html -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h5>RuangBelajarmu</h5>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">
+                        Platform booking dan manajemen fasilitas yang terintegrasi.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Tautan Cepat</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Booking Ruang</a></li>
+                        <li><a href="maps.html"><i class="bi bi-chevron-right"></i> Peta Kampus</a></li>
+                        <li><a href="scan.html"><i class="bi bi-chevron-right"></i> Scan QR</a></li>
+                        <li><a href="#fasilitas"><i class="bi bi-chevron-right"></i> Fasilitas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Fasilitas Booking</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Ruang Belajar</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Ruang Diskusi</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Lab Komputer</a></li>
+                        <li><a href="cafetaria.html"><i class="bi bi-chevron-right"></i> Cafetaria</a></li>
+                        <li><a href="books.html"><i class="bi bi-chevron-right"></i> Perpustakaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="footer-links-list">
+                        <li>
+                            <a href="mailto:booking@ruangbelajarmu.uii.ac.id">
+                                <i class="bi bi-envelope"></i>
+                                booking@ruangbelajarmu.uii.ac.id
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+62274551234">
+                                <i class="bi bi-telephone"></i>
+                                (0274) 551-234
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://maps.google.com/?q=UII+Kaliurang+KM+5" target="_blank">
+                                <i class="bi bi-geo-alt"></i>
+                                Jalan Kaliurang, Yogyakarta
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom text-center">
+                <p class="mb-2">&copy; 2024 RuangBelajarmu. Platform Booking Fasilitas.</p>
+                <p class="mb-0 small" style="color: rgba(255,255,255,0.5);">
+                    <i class="bi bi-info-circle"></i>
+                    Sistem ini dikembangkan untuk mendukung kegiatan akademik di lingkungan Universitas Islam Indonesia.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="bi bi-chevron-up"></i>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

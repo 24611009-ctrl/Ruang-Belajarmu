@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksi Buku | RuangBelajarmu - Perpustakaan Digital</title>
+    
+    <!-- SEO & Accessibility Meta -->
+    <meta name="description" content="Platform perpustakaan digital dengan koleksi lengkap buku akademik, novel, dan literatur populer untuk mendukung kegiatan belajar">
+    <meta name="keywords" content="Perpustakaan digital, buku akademik, novel, koleksi buku, literatur, referensi kuliah">
+    <meta name="author" content="RuangBelajarmu Team">
+    <meta name="theme-color" content="#1a5f23">
+    
+    <!-- Core Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Animation Libraries -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/books.css">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <div class="container">
+        <!-- Brand with Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <div class="logo-container me-2">
+                <img src="https://i.pinimg.com/736x/15/b1/71/15b17137e36ff051b32609885b4a23a9.jpg" 
+                     alt="RuangBelajarmu Logo" 
+                     class="navbar-logo rounded-circle border border-success">
+            </div>
+            <span class="fw-bold fs-4 text-success">RuangBelajarmu</span>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <!-- Beranda -->
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="index.html">
+                        <i class="bi bi-house-door me-1"></i>Beranda
+                    </a>
+                </li>
+
+                <!-- Booking -->
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="booking.html">
+                        <i class="bi bi-calendar-check me-1"></i>Booking
+                    </a>
+                </li>
+
+                <!-- Fasilitas Dropdown -->
+                <li class="nav-item dropdown mx-1">
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-building me-1"></i>Fasilitas
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="cafetaria.html">
+                                <i class="bi bi-cup-hot me-2"></i>Cafetaria
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item active" href="books.html">
+                                <i class="bi bi-book me-2"></i>Buku
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Scan -->
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="scan.html">
+                        <i class="bi bi-qr-code-scan me-1"></i>Scan
+                    </a>
+                </li>
+
+                <!-- Maps -->
+                <li class="nav-item mx-1">
+                    <a class="nav-link" href="maps.html">
+                        <i class="bi bi-geo-alt me-1"></i>Maps
+                    </a>
+                </li>
+
+                <!-- Layanan Dropdown -->
+                <li class="nav-item dropdown mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-headset me-1"></i>Layanan
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="about-us.html">
+                                <i class="bi bi-info-circle me-2"></i>Tentang Kami
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="kontak.html">
+                                <i class="bi bi-envelope me-2"></i>Kontak
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="books-hero" data-aos="fade-up">
+    <div class="hero-bg"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="bi bi-book-half"></i>
+                Koleksi Terlengkap
+            </div>
+            <h1 class="hero-title">Temukan Harta Karun<br><span class="text-gradient">dalam Setiap Halaman</span></h1>
+            <p class="hero-subtitle">
+                Jelajahi lebih dari 15.000 koleksi buku. 
+                Dari literatur akademik, novel, puisi, hingga buku pengembangan diri - semua ada dalam genggaman Anda.
+            </p>
+            
+            <div class="hero-cta" data-aos="fade-up" data-aos-delay="200">
+                <a href="#search-section" class="btn btn-success btn-lg px-5 py-3">
+                    <i class="bi bi-search me-2"></i>
+                    Cari Buku
+                </a>
+                <a href="#popular-books" class="btn btn-outline-light btn-lg px-5 py-3 ms-3">
+                    <i class="bi bi-star me-2"></i>
+                    Lihat Populer
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Search Section -->
+<section class="search-section py-5" id="search-section">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">Cari Buku Favorit Anda</h2>
+            <p class="section-subtitle">Temukan ribuan koleksi buku dengan mudah menggunakan sistem pencarian kami</p>
+        </div>
+        
+        <div class="search-box" data-aos="fade-up">
+            <div class="search-wrapper">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" 
+                       class="search-input" 
+                       placeholder="Ketik judul buku, penulis, atau kata kunci..."
+                       id="searchInput">
+                <button class="btn btn-success search-btn" id="searchBtn">
+                    <i class="bi bi-search me-2"></i>Cari
+                </button>
+            </div>
+            
+            <div class="filter-tags mt-4" data-aos="fade-up" data-aos-delay="100">
+                <button class="filter-tag active" data-filter="all">Semua</button>
+                <button class="filter-tag" data-filter="akademik">Akademik</button>
+                <button class="filter-tag" data-filter="novel">Novel</button>
+                <button class="filter-tag" data-filter="pengembangan">Pengembangan Diri</button>
+                <button class="filter-tag" data-filter="puisi">Puisi</button>
+                <button class="filter-tag" data-filter="sejarah">Sejarah</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Books Catalog -->
+<section class="books-catalog" id="popular-books">
+    <div class="container">
+        <div class="section-header">
+            <h2>Buku Pilihan Editor</h2>
+            <p>Koleksi terbaik yang direkomendasikan untuk Anda</p>
+        </div>
+        
+        <div class="books-grid">
+            <!-- Book 1 - Pengembangan Diri -->
+            <div class="book-card" data-aos="fade-up" data-category="pengembangan" data-search="atomic habits james clear pengembangan diri">
+                <div class="book-cover">
+                    <img src="https://i.pinimg.com/1200x/f1/e5/f3/f1e5f38e77fdaf187b70e2b4c785e1fc.jpg" 
+                         alt="Atomic Habits">
+                    <div class="book-badge bestseller">
+                        <i class="bi bi-trophy"></i> BESTSELLER
+                    </div>
+                </div>
+                <div class="book-content">
+                    <h4 class="book-title">Atomic Habits</h4>
+                    <p class="book-author"><i class="bi bi-person"></i> James Clear</p>
+                    <div class="book-meta">
+                        <span class="book-genre">Pengembangan Diri</span>
+                        <span class="book-year">2018</span>
+                    </div>
+                    <div class="book-description">
+                        Panduan revolusioner untuk membangun kebiasaan baik dan menghilangkan kebiasaan buruk. Buku ini mengajarkan perubahan kecil yang membawa hasil besar.
+                    </div>
+                    <div class="book-stats">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span>4.7</span>
+                        </div>
+                        <div class="book-stock">
+                            <i class="bi bi-files"></i>
+                            <span>15 copy tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Book 2 - Novel -->
+            <div class="book-card" data-aos="fade-up" data-aos-delay="100" data-category="novel" data-search="laskar pelangi andrea hirata novel indonesia">
+                <div class="book-cover">
+                    <img src="https://i.pinimg.com/736x/e3/3c/dd/e33cdd4208b38d8d7f537b79e1a5ec5d.jpg" 
+                         alt="Laskar Pelangi">
+                    <div class="book-badge award">
+                        <i class="bi bi-award"></i> PENGHARGAAN
+                    </div>
+                </div>
+                <div class="book-content">
+                    <h4 class="book-title">Laskar Pelangi</h4>
+                    <p class="book-author"><i class="bi bi-person"></i> Andrea Hirata</p>
+                    <div class="book-meta">
+                        <span class="book-genre">Novel</span>
+                        <span class="book-year">2005</span>
+                    </div>
+                    <div class="book-description">
+                        Kisah inspiratif tentang sepuluh anak dari keluarga miskin di Belitung yang bersekolah di SD Muhammadiyah. Novel yang mengajarkan tentang persahabatan dan mimpi.
+                    </div>
+                    <div class="book-stats">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <span>4.9</span>
+                        </div>
+                        <div class="book-stock">
+                            <i class="bi bi-files"></i>
+                            <span>12 copy tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Book 3 - Akademik -->
+            <div class="book-card" data-aos="fade-up" data-aos-delay="200" data-category="akademik" data-search="introduction to algorithms thomas cormen computer science">
+                <div class="book-cover">
+                    <img src="https://i.pinimg.com/736x/a1/63/87/a16387ce2664a56234a974744041bea6.jpg" 
+                         alt="Introduction to Algorithms">
+                    <div class="book-badge reference">
+                        <i class="bi bi-book"></i> REFERENSI
+                    </div>
+                </div>
+                <div class="book-content">
+                    <h4 class="book-title">Introduction to Algorithms</h4>
+                    <p class="book-author"><i class="bi bi-person"></i> Thomas H. Cormen</p>
+                    <div class="book-meta">
+                        <span class="book-genre">Ilmu Komputer</span>
+                        <span class="book-year">2009</span>
+                    </div>
+                    <div class="book-description">
+                        Buku teks standar untuk algoritma dan struktur data. Referensi penting bagi mahasiswa dan profesional di bidang ilmu komputer.
+                    </div>
+                    <div class="book-stats">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span>4.6</span>
+                        </div>
+                        <div class="book-stock">
+                            <i class="bi bi-files"></i>
+                            <span>8 copy tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Book 4 - Puisi -->
+            <div class="book-card" data-aos="fade-up" data-aos-delay="300" data-category="puisi" data-search="hujan bulan juni sapardi djoko damono puisi">
+                <div class="book-cover">
+                    <img src="https://i.pinimg.com/736x/7c/3d/1e/7c3d1e7213bbefd3f3371bce2553232d.jpg" 
+                         alt="Hujan Bulan Juni">
+                    <div class="book-badge classic">
+                        <i class="bi bi-bookmark-star"></i> KLASIK
+                    </div>
+                </div>
+                <div class="book-content">
+                    <h4 class="book-title">Hujan Bulan Juni</h4>
+                    <p class="book-author"><i class="bi bi-person"></i> Sapardi Djoko Damono</p>
+                    <div class="book-meta">
+                        <span class="book-genre">Puisi</span>
+                        <span class="book-year">1994</span>
+                    </div>
+                    <div class="book-description">
+                        Kumpulan puisi legendaris yang telah menginspirasi generasi, penuh metafora kehidupan dan keindahan bahasa yang memikat.
+                    </div>
+                    <div class="book-stats">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <span>5.0</span>
+                        </div>
+                        <div class="book-stock">
+                            <i class="bi bi-files"></i>
+                            <span>10 copy tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Book 5 - Sejarah -->
+            <div class="book-card" data-aos="fade-up" data-category="sejarah" data-search="sejarah indonesia modern m.c. ricklefs sejarah">
+                <div class="book-cover">
+                    <img src="https://i.pinimg.com/736x/3b/d8/8f/3bd88f6f1fcf11fb3ddb665dbad426b3.jpg" 
+                         alt="Sejarah Indonesia Modern">
+                    <div class="book-badge trending">
+                        <i class="bi bi-fire"></i> POPULER
+                    </div>
+                </div>
+                <div class="book-content">
+                    <h4 class="book-title">Sejarah Indonesia Modern</h4>
+                    <p class="book-author"><i class="bi bi-person"></i> M.C. Ricklefs</p>
+                    <div class="book-meta">
+                        <span class="book-genre">Sejarah</span>
+                        <span class="book-year">2008</span>
+                    </div>
+                    <div class="book-description">
+                        Analisis komprehensif tentang perkembangan politik, sosial, dan budaya Indonesia dari masa kolonial hingga reformasi.
+                    </div>
+                    <div class="book-stats">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span>4.5</span>
+                        </div>
+                        <div class="book-stock">
+                            <i class="bi bi-files"></i>
+                            <span>6 copy tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Book 6 - Bisnis -->
+            <div class="book-card" data-aos="fade-up" data-aos-delay="100" data-category="pengembangan" data-search="rich dad poor dad robert kiyosaki keuangan">
+                <div class="book-cover">
+                    <img src="https://i.pinimg.com/1200x/e0/e0/1b/e0e01bb7b3998d2c9c028d9033041e67.jpg" 
+                         alt="Rich Dad Poor Dad">
+                    <div class="book-badge bestseller">
+                        <i class="bi bi-trophy"></i> BESTSELLER
+                    </div>
+                </div>
+                <div class="book-content">
+                    <h4 class="book-title">Rich Dad Poor Dad</h4>
+                    <p class="book-author"><i class="bi bi-person"></i> Robert T. Kiyosaki</p>
+                    <div class="book-meta">
+                        <span class="book-genre">Keuangan</span>
+                        <span class="book-year">1997</span>
+                    </div>
+                    <div class="book-description">
+                        Buku klasik tentang pendidikan keuangan yang mengajarkan perbedaan antara cara berpikir orang kaya dan orang miskin dalam mengelola uang.
+                    </div>
+                    <div class="book-stats">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span>4.4</span>
+                        </div>
+                        <div class="book-stock">
+                            <i class="bi bi-files"></i>
+                            <span>20 copy tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Book 7 - Psikologi -->
+            <div class="book-card" data-aos="fade-up" data-aos-delay="200" data-category="akademik" data-search="psikologi pendidikan educational psychology">
+                <div class="book-cover">
+                    <img src="https://i.pinimg.com/736x/ee/0b/f4/ee0bf42390b46bc6d78b8ea1990a3354.jpg" 
+                         alt="Psikologi Pendidikan">
+                    <div class="book-badge reference">
+                        <i class="bi bi-book"></i> REFERENSI
+                    </div>
+                </div>
+                <div class="book-content">
+                    <h4 class="book-title">Psikologi Pendidikan</h4>
+                    <p class="book-author"><i class="bi bi-person"></i> Prof. Dr. Bimo Walgito</p>
+                    <div class="book-meta">
+                        <span class="book-genre">Psikologi</span>
+                        <span class="book-year">2015</span>
+                    </div>
+                    <div class="book-description">
+                        Buku referensi tentang penerapan prinsip-prinsip psikologi dalam konteks pendidikan untuk meningkatkan efektivitas belajar mengajar.
+                    </div>
+                    <div class="book-stats">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <span>4.8</span>
+                        </div>
+                        <div class="book-stock">
+                            <i class="bi bi-files"></i>
+                            <span>9 copy tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Book 8 - Novel Indonesia -->
+            <div class="book-card" data-aos="fade-up" data-aos-delay="300" data-category="novel" data-search="pulang leila s. chudori novel sejarah">
+                <div class="book-cover">
+                    <img src="https://i.pinimg.com/736x/ea/79/5e/ea795eb2e732d3942e12f8867a05948c.jpg" 
+                         alt="Pulang">
+                    <div class="book-badge award">
+                        <i class="bi bi-award"></i> PENGHARGAAN
+                    </div>
+                </div>
+                <div class="book-content">
+                    <h4 class="book-title">Pulang</h4>
+                    <p class="book-author"><i class="bi bi-person"></i> Leila S. Chudori</p>
+                    <div class="book-meta">
+                        <span class="book-genre">Novel Sejarah</span>
+                        <span class="book-year">2012</span>
+                    </div>
+                    <div class="book-description">
+                        Novel epik tentang eksil politik Indonesia tahun 1965 dan perjalanan panjang pulang ke tanah air setelah berpuluh tahun di pengasingan.
+                    </div>
+                    <div class="book-stats">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span>4.7</span>
+                        </div>
+                        <div class="book-stock">
+                            <i class="bi bi-files"></i>
+                            <span>7 copy tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</section>
+
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <div class="footer-section">
+                <h5>RuangBelajarmu</h5>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">
+                    Platform perpustakaan digital terintegrasi untuk mendukung kegiatan akademik dan literasi di Universitas Islam Indonesia.
+                </p>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h5>Tautan Cepat</h5>
+                <ul class="footer-links-list">
+                    <li><a href="index.html"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                    <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Booking</a></li>
+                    <li><a href="books.html"><i class="bi bi-chevron-right"></i> Buku</a></li>
+                    <li><a href="scan.html"><i class="bi bi-chevron-right"></i> Scan QR</a></li>
+                    <li><a href="maps.html"><i class="bi bi-chevron-right"></i> Maps</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h5>Kategori Buku</h5>
+                <ul class="footer-links-list">
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Novel & Fiksi</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Puisi & Sastra</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Sejarah & Biografi</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Sains & Teknologi</a></li>
+                    <li><a href="#"><i class="bi bi-chevron-right"></i> Bisnis & Ekonomi</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h5>Hubungi Kami</h5>
+                <ul class="footer-links-list">
+                    <li>
+                        <a href="mailto:ruangbelajarmu@uii.ac.id">
+                            <i class="bi bi-envelope"></i>
+                            ruangbelajarmu@uii.ac.id
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:+62274898444">
+                            <i class="bi bi-telephone"></i>
+                            (0274) 898444
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://maps.google.com/?q=UII+Kaliurang+KM+5" target="_blank">
+                            <i class="bi bi-geo-alt"></i>
+                            Jalan Kaliurang, Yogyakarta
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom text-center">
+            <p class="mb-2">&copy; 2024 RuangBelajarmu. Platform Perpustakaan Digital.</p>
+            <p class="mb-0 small" style="color: rgba(255,255,255,0.5);">
+                <i class="bi bi-info-circle"></i>
+                Sistem ini dikembangkan untuk mendukung kegiatan akademik di lingkungan Universitas Islam Indonesia.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<div class="back-to-top" id="backToTop">
+    <i class="bi bi-arrow-up"></i>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+// Initialize AOS
+AOS.init({
+    duration: 800,
+    once: true,
+    offset: 100
+});
+
+// Back to Top Button
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
+    }
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Search and Filter System
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const filterTags = document.querySelectorAll('.filter-tag');
+const bookCards = document.querySelectorAll('.book-card');
+
+// Filter functionality
+filterTags.forEach(tag => {
+    tag.addEventListener('click', function() {
+        // Remove active class from all tags
+        filterTags.forEach(t => t.classList.remove('active'));
+        
+        // Add active class to clicked tag
+        this.classList.add('active');
+        
+        const filterValue = this.getAttribute('data-filter');
+        
+        // Show/hide books based on filter
+        bookCards.forEach(card => {
+            if (filterValue === 'all') {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+            } else {
+                const category = card.getAttribute('data-category');
+                if (category === filterValue) {
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                } else {
+                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                }
+            }
+        });
+    });
+});
+
+// Search functionality
+searchBtn.addEventListener('click', performSearch);
+searchInput.addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+        performSearch();
+    }
+});
+
+function performSearch() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+        // If empty search, show all books
+        bookCards.forEach(card => {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+        });
+        return;
+    }
+    
+    let foundBooks = 0;
+    
+    bookCards.forEach(card => {
+        const title = card.querySelector('.book-title').textContent.toLowerCase();
+        const author = card.querySelector('.book-author').textContent.toLowerCase();
+        const description = card.querySelector('.book-description').textContent.toLowerCase();
+        const genre = card.querySelector('.book-genre').textContent.toLowerCase();
+        const searchData = card.getAttribute('data-search');
+        
+        if (title.includes(searchTerm) || 
+            author.includes(searchTerm) || 
+            description.includes(searchTerm) ||
+            genre.includes(searchTerm) ||
+            (searchData && searchData.includes(searchTerm))) {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+            foundBooks++;
+        } else {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+        }
+    });
+    
+    // If no books found, show message
+    if (foundBooks === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results text-center py-5';
+        noResults.innerHTML = `
+            <i class="bi bi-search fa-3x text-muted mb-3"></i>
+            <h4 class="mb-3">Tidak ada buku yang ditemukan</h4>
+            <p class="text-muted">Coba dengan kata kunci lain atau jelajahi kategori di atas</p>
+        `;
+        
+        // Remove existing no results message if any
+        const existingNoResults = document.querySelector('.no-results');
+        if (existingNoResults) {
+            existingNoResults.remove();
+        }
+        
+        // Insert before the "Lihat Semua Koleksi" button
+        const booksCatalog = document.querySelector('.books-catalog .container');
+        const viewAllBtn = document.querySelector('.books-catalog .text-center');
+        booksCatalog.insertBefore(noResults, viewAllBtn);
+    } else {
+        // Remove no results message if exists
+        const noResults = document.querySelector('.no-results');
+        if (noResults) {
+            noResults.remove();
+        }
+    }
+}
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Initialize with all books showing
+window.addEventListener('DOMContentLoaded', function() {
+    // Reset all filters
+    filterTags.forEach(tag => {
+        if (tag.getAttribute('data-filter') === 'all') {
+            tag.classList.add('active');
+        } else {
+            tag.classList.remove('active');
+        }
+    });
+    
+    // Show all books
+    bookCards.forEach(card => {
+        card.style.display = 'block';
+        card.style.opacity = '1';
+    });
+});
+</script>
+</body>
+</html>

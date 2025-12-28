@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan QR - RuangBelajarmu</title>
+    
+    <!-- SEO Meta -->
+    <meta name="description" content="Scan QR code untuk check-in booking di RuangBelajarmu">
+    <meta name="keywords" content="scan qr, check-in, booking, ruang belajar, perpustakaan, UII">
+    <meta name="author" content="RuangBelajarmu Team">
+    
+    <!-- Core Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========== VARIABEL & RESET ========== */
+        :root {
+            --uli-green: #1a5f23;
+            --uli-green-light: #2e7d32;
+            --uli-green-lighter: #43a047;
+            --uli-green-pale: #e8f5e9;
+            --uli-gold: #ffd700;
+            --gradient-uli: linear-gradient(135deg, #1a5f23 0%, #2e7d32 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffecb3 100%);
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fff9 0%, #f1f8e9 100%);
+            min-height: 100vh;
+            color: #424242;
+            overflow-x: hidden;
+            padding-top: 70px; /* SAMA DENGAN INDEX.HTML */
+        }
+        
+        /* ========== NAVBAR (SAMA PERSIS DENGAN INDEX.HTML) ========== */
+        .navbar {
+            padding: 12px 0;
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(11, 61, 35, 0.1);
+            z-index: 1030;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .navbar-brand {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-container {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .navbar-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #198754;
+            padding: 2px;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(25, 135, 84, 0.15);
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(25, 135, 84, 0.25);
+        }
+        
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .navbar-nav .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #0b3d23 !important;
+            padding: 10px 16px !important;
+            margin: 0 2px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--uli-green), var(--uli-green-light));
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 70%;
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #0f3a15 0%, var(--uli-green) 100%);
+        }
+        
+        .navbar-nav .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow-lg);
+            border-radius: 12px;
+            padding: 8px;
+            margin-top: 12px;
+            min-width: 220px;
+            border: 1px solid rgba(11, 61, 35, 0.1);
+        }
+        
+        .dropdown-item {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            margin: 0.1rem 0.3rem;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: var(--uli-green-pale);
+            color: var(--uli-green);
+        }
+        
+        /* ========== MAIN CONTENT ========== */
+        .scan-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Header */
+        .scan-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+        
+        .scan-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-uli);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .scan-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Scanner Section */
+        .scanner-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 2rem;
+        }
+        
+        .scanner-header {
+            background: var(--gradient-uli);
+            color: white;
+            padding: 1.5rem 2rem;
+        }
+        
+        .scanner-header h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .scanner-body {
+            padding: 2rem;
+        }
+        
+        /* Scanner View */
+        .scanner-view {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+        
+        #qr-reader {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        .scanner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .scanner-frame {
+            width: 70%;
+            height: 70%;
+            border: 3px solid rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+        
+        .scanner-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--uli-green-lighter), transparent);
+            top: 0;
+            animation: scan 2s infinite linear;
+            border-radius: 2px;
+        }
+        
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+        
+        /* QR Corners */
+        .qr-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-color: var(--uli-green-lighter);
+            border-width: 4px;
+        }
+        
+        .qr-corner.tl {
+            top: 15px;
+            left: 15px;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .qr-corner.tr {
+            top: 15px;
+            right: 15px;
+            border-top-style: solid;
+            border-right-style: solid;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .qr-corner.bl {
+            bottom: 15px;
+            left: 15px;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            border-top: none;
+            border-right: none;
+        }
+        
+        /* Scanner Controls */
+        .scanner-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .scanner-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-lg);
+            border: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-scan {
+            background: var(--gradient-uli);
+            color: white;
+        }
+        
+        .btn-scan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(26, 95, 35, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background: #e68900;
+            transform: translateY(-2px);
+        }
+        
+        /* Result Section */
+        .result-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .result-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .success-icon {
+            background: rgba(67, 160, 71, 0.1);
+            color: var(--uli-green);
+        }
+        
+        .error-icon {
+            background: rgba(244, 67, 54, 0.1);
+            color: #d32f2f;
+        }
+        
+        .info-icon {
+            background: rgba(33, 150, 243, 0.1);
+            color: #1976d2;
+        }
+        
+        .result-content {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--uli-green);
+        }
+        
+        /* Booking Info */
+        .booking-info {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            margin-top: 2rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .info-item {
+            padding: 1rem;
+            background: var(--uli-green-pale);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--uli-green);
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+        
+        .info-value {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        /* ========== FOOTER (SAMA PERSIS DENGAN INDEX.HTML) ========== */
+        footer {
+            background: linear-gradient(135deg, #0f3a15, var(--uli-green));
+            color: white;
+            padding: 5rem 0 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-section h5 {
+            color: var(--uli-gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .footer-section h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--uli-gold);
+            border-radius: 2px;
+        }
+        
+        .footer-links-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links-list li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links-list a {
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            padding: 0.25rem 0;
+        }
+        
+        .footer-links-list a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-links-list a i {
+            font-size: 0.8rem;
+            width: 16px;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* How it works section styling */
+        .how-it-works {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            margin-top: 2rem;
+        }
+        
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--uli-green-pale);
+            border-radius: var(--radius-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-uli);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h5 {
+            color: var(--uli-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-content p {
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .navbar-brand span {
+                font-size: 1.5rem;
+            }
+            
+            .scan-title {
+                font-size: 2rem;
+            }
+            
+            .scanner-view {
+                max-width: 100%;
+            }
+            
+            .scanner-controls {
+                flex-direction: column;
+            }
+            
+            .scanner-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Camera Permission Modal */
+        .permission-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .permission-content {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .permission-icon {
+            font-size: 4rem;
+            color: var(--uli-green);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== NAVBAR (SAMA PERSIS DENGAN INDEX.HTML) ========== -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <!-- Brand with Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-container me-2">
+                    <img src="https://i.pinimg.com/736x/15/b1/71/15b17137e36ff051b32609885b4a23a9.jpg" 
+                         alt="RuangBelajarmu Logo" 
+                         class="navbar-logo rounded-circle border border-success">
+                </div>
+                <span class="fw-bold fs-4 text-success">RuangBelajarmu</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Beranda -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Beranda
+                        </a>
+                    </li>
+
+                    <!-- Booking -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="booking.html">
+                            <i class="bi bi-calendar-check me-1"></i>Booking
+                        </a>
+                    </li>
+
+                    <!-- Fasilitas Dropdown -->
+                    <li class="nav-item dropdown mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-building me-1"></i>Fasilitas
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="cafetaria.html">
+                                    <i class="bi bi-cup-hot me-2"></i>Cafetaria
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="books.html">
+                                    <i class="bi bi-book me-2"></i>Buku
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Scan - ACTIVE -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link active" href="scan.html">
+                            <i class="bi bi-qr-code-scan me-1"></i>Scan
+                        </a>
+                    </li>
+
+                    <!-- Maps -->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="maps.html">
+                            <i class="bi bi-geo-alt me-1"></i>Maps
+                        </a>
+                    </li>
+
+                    <!-- Layanan Dropdown -->
+                    <li class="nav-item dropdown mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-headset me-1"></i>Layanan
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="about-us.html">
+                                    <i class="bi bi-info-circle me-2"></i>Tentang Kami
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="kontak.html">
+                                    <i class="bi bi-envelope me-2"></i>Kontak
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Camera Permission Modal -->
+    <div class="permission-modal" id="permissionModal">
+        <div class="permission-content">
+            <div class="permission-icon">
+                <i class="bi bi-camera-video"></i>
+            </div>
+            <h4>Izin Kamera Diperlukan</h4>
+            <p class="mb-3">Scanner QR code membutuhkan akses ke kamera perangkat Anda. 
+                Silakan izinkan akses kamera saat browser meminta.</p>
+            <div class="scanner-controls">
+                <button class="scanner-btn btn-scan" id="requestPermission">
+                    <i class="bi bi-check-lg"></i>
+                    Izinkan Kamera
+                </button>
+                <button class="scanner-btn btn-secondary" id="closePermissionModal">
+                    <i class="bi bi-x-lg"></i>
+                    Nanti Saja
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Scan Container -->
+    <div class="scan-container">
+        <!-- Header -->
+        <div class="scan-header" data-aos="fade-up">
+            <h1 class="scan-title">QR Code Scanner</h1>
+            <p class="scan-subtitle">
+                Scan QR code untuk check-in booking ruang belajar. 
+                Sistem akan memvalidasi dan mencatat kehadiran Anda secara otomatis.
+            </p>
+        </div>
+
+        <!-- Scanner Section -->
+        <div class="scanner-section" data-aos="fade-up">
+            <div class="scanner-header">
+                <h4 class="mb-0">
+                    <i class="bi bi-qr-code-scan"></i>
+                    Scanner Kamera
+                </h4>
+                <small>Arahkan kamera ke QR code untuk memindai</small>
+            </div>
+            
+            <div class="scanner-body">
+                <!-- Permission Note -->
+                <div class="permission-note mb-3">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-info-circle-fill text-warning"></i>
+                        <strong>Izin Kamera Diperlukan</strong>
+                    </div>
+                    <p class="mb-0 small">
+                        Scanner membutuhkan akses kamera HP Anda. Izinkan akses kamera saat browser meminta.
+                        Gunakan di lingkungan terang untuk hasil terbaik.
+                    </p>
+                </div>
+                
+                <!-- Scanner View -->
+                <div class="scanner-view" id="scanner-view">
+                    <div id="qr-reader"></div>
+                    
+                    <div class="scanner-overlay">
+                        <div class="scanner-frame">
+                            <div class="scanner-line"></div>
+                            <div class="qr-corner tl"></div>
+                            <div class="qr-corner tr"></div>
+                            <div class="qr-corner bl"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scanner Status -->
+                <div class="scanner-status mt-3" id="scanner-status">
+                    <i class="bi bi-camera-video"></i>
+                    <span id="status-text">Kamera siap digunakan</span>
+                </div>
+                
+                <!-- Scanner Controls -->
+                <div class="scanner-controls">
+                    <button class="scanner-btn btn-scan" id="start-scanner">
+                        <i class="bi bi-play-fill"></i>
+                        Mulai Scan
+                    </button>
+                    <button class="scanner-btn btn-secondary" id="stop-scanner" disabled>
+                        <i class="bi bi-stop-fill"></i>
+                        Stop Scan
+                    </button>
+                    <button class="scanner-btn btn-warning" id="toggle-camera">
+                        <i class="bi bi-arrow-left-right"></i>
+                        Kamera Belakang
+                    </button>
+                    <button class="scanner-btn btn-secondary" id="upload-qr">
+                        <i class="bi bi-upload"></i>
+                        Upload QR
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scan Result -->
+        <div class="result-section" id="result-section">
+            <div class="result-header">
+                <div class="result-icon" id="result-icon">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <div>
+                    <h4 class="mb-1" id="result-title">Scan QR Code</h4>
+                    <p class="mb-0 text-muted" id="result-subtitle">Hasil scan akan muncul di sini</p>
+                </div>
+            </div>
+            
+            <div class="result-content">
+                <div id="scan-result">
+                    <p><strong>Booking ID:</strong> -</p>
+                    <p><strong>Status:</strong> <span class="badge bg-secondary">MENUNGGU SCAN</span></p>
+                    <p><strong>Waktu Check-in:</strong> -</p>
+                    <p class="mb-0"><strong>Petugas:</strong> -</p>
+                </div>
+            </div>
+            
+            <div class="scanner-controls mt-3">
+                <button class="scanner-btn btn-scan" id="scan-again">
+                    <i class="bi bi-arrow-repeat"></i>
+                    Scan Lagi
+                </button>
+                <button class="scanner-btn btn-secondary" id="close-result">
+                    <i class="bi bi-x-lg"></i>
+                    Tutup
+                </button>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="how-it-works" data-aos="fade-up">
+            <h4 class="mb-3">
+                <i class="bi bi-info-circle me-2"></i>
+                Cara Kerja Scan QR
+            </h4>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>Lakukan Booking</h5>
+                        <p>Buat booking ruang belajar melalui halaman booking website ini. Anda akan mendapatkan QR code unik setelah booking berhasil.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>Download QR Code</h5>
+                        <p>Simpan QR code yang didapat dari email atau halaman booking. QR code dapat berupa gambar yang bisa discan nantinya.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>Scan QR Code</h5>
+                        <p>Gunakan scanner ini untuk scan QR code melalui kamera atau upload gambar QR code yang sudah disimpan.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>Validasi Otomatis</h5>
+                        <p>Sistem akan memvalidasi booking Anda secara otomatis dan mencatat kehadiran jika booking valid.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER (SAMA PERSIS DENGAN INDEX.HTML) ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h5>RuangBelajarmu</h5>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">
+                        Platform booking dan manajemen fasilitas kampus UII yang terintegrasi.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Tautan Cepat</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Booking Ruang</a></li>
+                        <li><a href="maps.html"><i class="bi bi-chevron-right"></i> Peta Kampus</a></li>
+                        <li><a href="scan.html"><i class="bi bi-chevron-right"></i> Scan QR</a></li>
+                        <li><a href="#fasilitas"><i class="bi bi-chevron-right"></i> Fasilitas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Fasilitas Booking</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Ruang Belajar</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Ruang Diskusi</a></li>
+                        <li><a href="booking.html"><i class="bi bi-chevron-right"></i> Lab Komputer</a></li>
+                        <li><a href="cafetaria.html"><i class="bi bi-chevron-right"></i> Cafetaria</a></li>
+                        <li><a href="books.html"><i class="bi bi-chevron-right"></i> Perpustakaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="footer-links-list">
+                        <li>
+                            <a href="mailto:booking@ruangbelajarmu.uii.ac.id">
+                                <i class="bi bi-envelope"></i>
+                                booking@ruangbelajarmu.uii.ac.id
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+62274551234">
+                                <i class="bi bi-telephone"></i>
+                                (0274) 551-234
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://maps.google.com/?q=UII+Kaliurang+KM+5" target="_blank">
+                                <i class="bi bi-geo-alt"></i>
+                                Kampus UII, Yogyakarta
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom text-center">
+                <p class="mb-2">&copy; 2024 RuangBelajarmu. Platform Booking Fasilitas Kampus UII.</p>
+                <p class="mb-0 small" style="color: rgba(255,255,255,0.5);">
+                    <i class="bi bi-info-circle"></i>
+                    Sistem ini dikembangkan untuk mendukung kegiatan akademik di lingkungan Universitas Islam Indonesia.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // ==================== SCANNER INTEGRATION ====================
+        let html5QrCode = null;
+        let isScanning = false;
+        let currentFacingMode = "environment";
+        
+        // DOM Elements
+        const startBtn = document.getElementById('start-scanner');
+        const stopBtn = document.getElementById('stop-scanner');
+        const toggleBtn = document.getElementById('toggle-camera');
+        const uploadBtn = document.getElementById('upload-qr');
+        const resultSection = document.getElementById('result-section');
+        const scanResult = document.getElementById('scan-result');
+        const scanAgainBtn = document.getElementById('scan-again');
+        const closeResultBtn = document.getElementById('close-result');
+        const scannerView = document.getElementById('scanner-view');
+        const statusText = document.getElementById('status-text');
+        const resultIcon = document.getElementById('result-icon');
+        const resultTitle = document.getElementById('result-title');
+        const resultSubtitle = document.getElementById('result-subtitle');
+        const permissionModal = document.getElementById('permissionModal');
+        const requestPermissionBtn = document.getElementById('requestPermission');
+        const closePermissionModalBtn = document.getElementById('closePermissionModal');
+        
+        // Initialize with result section hidden
+        resultSection.style.display = 'none';
+        
+        // Start Scanner
+        async function startScanner() {
+            try {
+                // Update UI
+                startBtn.disabled = true;
+                startBtn.innerHTML = '<span class="loading"></span> Memulai...';
+                statusText.innerHTML = 'Memulai scanner...';
+                
+                // Initialize scanner
+                html5QrCode = new Html5Qrcode("qr-reader");
+                
+                // Scanner configuration
+                const config = {
+                    fps: 10,
+                    qrbox: { width: 250, height: 250 },
+                    aspectRatio: 1.0,
+                    disableFlip: false
+                };
+                
+                // Start scanning
+                await html5QrCode.start(
+                    { facingMode: currentFacingMode },
+                    config,
+                    onScanSuccess,
+                    onScanFailure
+                );
+                
+                // Update UI after successful start
+                isScanning = true;
+                startBtn.style.display = 'none';
+                stopBtn.disabled = false;
+                scannerView.classList.add('camera-active');
+                statusText.innerHTML = 'Scanner aktif - Arahkan ke QR code';
+                
+            } catch (error) {
+                console.error("Gagal memulai scanner:", error);
+                
+                let errorMessage = "Gagal mengakses kamera";
+                if (error.name === 'NotAllowedError') {
+                    errorMessage = "Izin kamera ditolak. Harap izinkan akses kamera di pengaturan browser";
+                    showPermissionModal();
+                } else if (error.name === 'NotFoundError') {
+                    errorMessage = "Kamera tidak ditemukan";
+                } else if (error.name === 'NotSupportedError') {
+                    errorMessage = "Browser tidak mendukung QR scanner";
+                }
+                
+                // Reset UI
+                startBtn.disabled = false;
+                startBtn.innerHTML = '<i class="bi bi-play-fill"></i> Mulai Scan';
+                statusText.innerHTML = errorMessage;
+                
+                // Show error
+                showResult('error', 'Gagal Scanner', errorMessage);
+            }
+        }
+        
+        // Stop Scanner
+        function stopScanner() {
+            if (html5QrCode && isScanning) {
+                html5QrCode.stop().then(() => {
+                    isScanning = false;
+                    startBtn.style.display = 'flex';
+                    stopBtn.disabled = true;
+                    scannerView.classList.remove('camera-active');
+                    statusText.innerHTML = 'Kamera siap digunakan';
+                    startBtn.disabled = false;
+                    startBtn.innerHTML = '<i class="bi bi-play-fill"></i> Mulai Scan';
+                }).catch(err => {
+                    console.error("Gagal menghentikan scanner:", err);
+                });
+            }
+        }
+        
+        // Toggle Camera
+        async function toggleCamera() {
+            if (isScanning) {
+                // Stop current scanner
+                await html5QrCode.stop();
+                isScanning = false;
+                
+                // Toggle camera mode
+                currentFacingMode = currentFacingMode === "environment" ? "user" : "environment";
+                
+                // Update button text
+                const cameraType = currentFacingMode === "environment" ? "Belakang" : "Depan";
+                toggleBtn.innerHTML = `<i class="bi bi-arrow-left-right"></i> Kamera ${cameraType}`;
+                
+                // Update status
+                statusText.innerHTML = 'Mengganti kamera...';
+                
+                // Restart scanner with new camera
+                setTimeout(() => {
+                    startScanner();
+                }, 500);
+            }
+        }
+        
+        // Upload QR Image
+        function uploadQRImage() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    // Validate file size (max 5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        showResult('error', 'File Terlalu Besar', 'Ukuran file maksimal 5MB');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Show uploading message
+                        showResult('info', 'Memproses QR Code', `Mengupload gambar: ${file.name}`);
+                        
+                        // For demo, simulate a scan result
+                        setTimeout(() => {
+                            const bookingId = 'BK' + Date.now().toString().slice(-6);
+                            processScanResult(`RUANGBELAJARMU:${bookingId}:${Date.now()}`);
+                        }, 1500);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            input.click();
+        }
+        
+        // On Scan Success
+        function onScanSuccess(decodedText, decodedResult) {
+            // Pause scanner temporarily
+            if (html5QrCode && isScanning) {
+                html5QrCode.pause();
+            }
+            
+            // Process the scan result
+            processScanResult(decodedText);
+            
+            // Provide feedback
+            playScanSound();
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            
+            // Auto-resume scanner after 3 seconds
+            setTimeout(() => {
+                if (html5QrCode && !isScanning) {
+                    html5QrCode.resume();
+                }
+            }, 3000);
+        }
+        
+        // On Scan Failure
+        function onScanFailure(error) {
+            // Only log for debugging
+            // console.debug("Scan error:", error);
+        }
+        
+        // Process Scan Result
+        function processScanResult(decodedText) {
+            console.log("QR berhasil discan:", decodedText);
+            
+            // Check if it's a booking QR
+            if (decodedText.includes('RUANGBELAJARMU') || decodedText.includes('BOOKING')) {
+                // Extract booking ID from QR code
+                let bookingId = '';
+                
+                // Try different QR formats
+                if (decodedText.includes('RUANGBELAJARMU')) {
+                    const parts = decodedText.split(':');
+                    if (parts.length >= 2) {
+                        bookingId = parts[1] || 'BK' + Date.now().toString().slice(-6);
+                    }
+                } else if (decodedText.includes('BOOKING')) {
+                    const parts = decodedText.split('|');
+                    for (const part of parts) {
+                        if (part.includes('ID:')) {
+                            bookingId = part.split(':')[1];
+                            break;
+                        }
+                    }
+                }
+                
+                // For demo: Random success/error (70% success rate)
+                const isSuccess = Math.random() > 0.3;
+                
+                if (isSuccess) {
+                    showBookingSuccess(bookingId || 'BK' + Date.now().toString().slice(-6));
+                } else {
+                    showBookingError(bookingId || 'Unknown');
+                }
+            } else {
+                // Generic QR code
+                showResult('info', 'QR Code Terdeteksi', 'Konten: ' + decodedText);
+            }
+        }
+        
+        // Show Booking Success
+        function showBookingSuccess(bookingId) {
+            const currentTime = new Date();
+            const formattedTime = currentTime.toLocaleString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            resultIcon.className = 'result-icon success-icon';
+            resultIcon.innerHTML = `<i class="bi bi-check-lg"></i>`;
+            resultTitle.textContent = 'Check-in Berhasil!';
+            resultSubtitle.textContent = 'Booking berhasil divalidasi';
+            
+            scanResult.innerHTML = `
+                <p><strong>Booking ID:</strong> ${bookingId}</p>
+                <p><strong>Status:</strong> <span class="badge bg-success">CHECK-IN BERHASIL</span></p>
+                <p><strong>Waktu Check-in:</strong> ${formattedTime}</p>
+                <p class="mb-0"><strong>Petugas:</strong> Sistem Otomatis</p>
+            `;
+            
+            // Show result section
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Show Booking Error
+        function showBookingError(bookingId) {
+            const errorMessages = [
+                "QR code tidak valid atau booking telah kadaluarsa",
+                "Booking sudah digunakan untuk check-in sebelumnya",
+                "Waktu booking sudah lewat",
+                "Ruangan sedang tidak tersedia"
+            ];
+            
+            const randomError = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+            
+            resultIcon.className = 'result-icon error-icon';
+            resultIcon.innerHTML = `<i class="bi bi-exclamation-triangle"></i>`;
+            resultTitle.textContent = 'Booking Tidak Valid';
+            resultSubtitle.textContent = randomError;
+            
+            scanResult.innerHTML = `
+                <p><strong>Booking ID:</strong> ${bookingId}</p>
+                <p><strong>Status:</strong> <span class="badge bg-danger">GAGAL VALIDASI</span></p>
+                <p class="mb-0">${randomError}. Silakan periksa kembali QR code Anda atau hubungi admin.</p>
+            `;
+            
+            // Show result section
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Show Result
+        function showResult(type, title, message) {
+            // Update result section
+            if (type === 'success') {
+                resultIcon.className = 'result-icon success-icon';
+                resultIcon.innerHTML = `<i class="bi bi-check-lg"></i>`;
+                resultTitle.textContent = title;
+                resultSubtitle.textContent = 'Scan berhasil';
+            } else if (type === 'error') {
+                resultIcon.className = 'result-icon error-icon';
+                resultIcon.innerHTML = `<i class="bi bi-exclamation-triangle"></i>`;
+                resultTitle.textContent = title;
+                resultSubtitle.textContent = 'Terjadi kesalahan';
+            } else {
+                resultIcon.className = 'result-icon info-icon';
+                resultIcon.innerHTML = `<i class="bi bi-info-circle"></i>`;
+                resultTitle.textContent = title;
+                resultSubtitle.textContent = 'Informasi';
+            }
+            
+            // Format message
+            scanResult.innerHTML = `<p class="mb-0">${message}</p>`;
+            
+            // Show result section
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Show Permission Modal
+        function showPermissionModal() {
+            permissionModal.style.display = 'flex';
+        }
+        
+        // Hide Permission Modal
+        function hidePermissionModal() {
+            permissionModal.style.display = 'none';
+        }
+        
+        // Play Scan Sound
+        function playScanSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log("Audio tidak tersedia");
+            }
+        }
+        
+        // Event Listeners
+        startBtn.addEventListener('click', startScanner);
+        stopBtn.addEventListener('click', stopScanner);
+        toggleBtn.addEventListener('click', toggleCamera);
+        uploadBtn.addEventListener('click', uploadQRImage);
+        scanAgainBtn.addEventListener('click', function() {
+            resultSection.style.display = 'none';
+            if (html5QrCode && !isScanning) {
+                startScanner();
+            }
+        });
+        closeResultBtn.addEventListener('click', function() {
+            resultSection.style.display = 'none';
+        });
+        
+        // Permission Modal Events
+        requestPermissionBtn.addEventListener('click', function() {
+            hidePermissionModal();
+            startScanner();
+        });
+        
+        closePermissionModalBtn.addEventListener('click', hidePermissionModal);
+        
+        // Auto-start on mobile (with permission)
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            // Show permission modal after short delay
+            setTimeout(() => {
+                showPermissionModal();
+            }, 500);
+        }
+        
+        // Clean up on page unload
+        window.addEventListener('beforeunload', function() {
+            if (html5QrCode && isScanning) {
+                html5QrCode.stop();
+            }
+        });
+        
+        console.log("Scanner QR RuangBelajarmu siap digunakan");
+    </script>
+</body>
+</html>
