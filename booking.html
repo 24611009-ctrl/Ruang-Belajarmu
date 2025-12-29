@@ -115,12 +115,15 @@
         .room-card.booked {
             opacity: 0.7;
             cursor: not-allowed;
+            border-color: #ffebee;
+            background: #ffebee;
         }
         
         .room-card.booked:hover {
             transform: none;
-            border-color: #e0e0e0;
+            border-color: #ffcdd2;
             box-shadow: none;
+            background: #ffebee;
         }
         
         .room-header {
@@ -1087,21 +1090,26 @@
                 
                 if (room.status !== 'booked') {
                     card.onclick = () => selectRoom(room.id);
+                } else {
+                    card.onclick = null;
                 }
                 
-                let statusText, statusClass;
+                let statusText, statusClass, statusIcon;
                 switch(room.status) {
                     case 'available':
                         statusText = 'TERSEDIA';
                         statusClass = 'status-available';
+                        statusIcon = 'bi-check-circle';
                         break;
                     case 'limited':
                         statusText = 'TERBATAS';
                         statusClass = 'status-limited';
+                        statusIcon = 'bi-exclamation-circle';
                         break;
                     case 'booked':
-                        statusText = 'TERISI';
+                        statusText = 'TIDAK TERSEDIA';
                         statusClass = 'status-booked';
+                        statusIcon = 'bi-x-circle';
                         break;
                 }
                 
@@ -1112,7 +1120,7 @@
                             ${room.name}
                         </h6>
                         <div class="room-status ${statusClass}">
-                            <i class="bi ${room.status === 'available' ? 'bi-check-circle' : room.status === 'limited' ? 'bi-exclamation-circle' : 'bi-x-circle'}"></i>
+                            <i class="bi ${statusIcon}"></i>
                             ${statusText}
                         </div>
                     </div>
@@ -1132,6 +1140,13 @@
                         <div class="mt-2 pt-2 border-top">
                             <span class="badge bg-success">
                                 <i class="bi bi-check-circle"></i> DIPILIH
+                            </span>
+                        </div>
+                    ` : ''}
+                    ${room.status === 'booked' ? `
+                        <div class="mt-2 pt-2 border-top">
+                            <span class="badge bg-danger">
+                                <i class="bi bi-lock"></i> SUDAH DIBOOKING
                             </span>
                         </div>
                     ` : ''}
@@ -1228,12 +1243,20 @@
                 return;
             }
             
-            const room = rooms.find(r => r.id === selectedRoom);
+            const roomIndex = rooms.findIndex(r => r.id === selectedRoom);
+            const room = rooms[roomIndex];
             
             if (room.status === 'booked') {
                 showNotification('Maaf, ruangan ini sudah tidak tersedia', 'error');
                 return;
             }
+            
+            // ⭐⭐⭐ PERUBAHAN PENTING: UPDATE STATUS ROOM DI DATABASE LOKAL ⭐⭐⭐
+            // Simpan status lama untuk backup
+            const previousStatus = room.status;
+            
+            // Update status menjadi 'booked'
+            rooms[roomIndex].status = 'booked';
             
             const bookingId = 'BK' + Date.now().toString().slice(-6);
             
@@ -1261,18 +1284,28 @@
                 hideLoading();
                 
                 if (sheetsResult.success) {
-                    showNotification('🎉 Booking berhasil! Data telah disimpan ke spreadsheet.', 'success');
+                    // ✅ BERHASIL: Tampilkan notifikasi sukses
+                    showNotification('✅ Booking berhasil! Status ruangan berubah menjadi TIDAK TERSEDIA.', 'success');
+                    
+                    // Refresh tampilan ruangan
+                    loadRooms();
+                    
+                    // Tampilkan QR Code
                     showQRCodeResult(bookingData);
+                    
+                    // Simpan ke localStorage
                     saveToLocalStorage(bookingData);
                     
                 } else {
-                    showNotification('⚠️ Data disimpan lokal. Coba refresh halaman dan coba lagi.', 'warning');
-                    showQRCodeResult(bookingData);
-                    saveToLocalStorage(bookingData);
+                    // ❌ GAGAL: Kembalikan status ke semula
+                    rooms[roomIndex].status = previousStatus;
+                    showNotification('⚠️ Gagal mengirim data ke server. Coba lagi.', 'warning');
                 }
                 
             } catch (error) {
                 hideLoading();
+                // ❌ ERROR: Kembalikan status ke semula
+                rooms[roomIndex].status = previousStatus;
                 showNotification('❌ Error sistem: ' + error.message, 'error');
             }
         }
@@ -1348,6 +1381,26 @@
             }
         }
 
+        // ==================== AUTO RESET STATUS (OPTIONAL) ====================
+        // Fungsi ini untuk simulasi reset status setelah waktu tertentu
+        // Dalam implementasi nyata, ini akan dihandle oleh server
+        function simulateStatusReset() {
+            setInterval(() => {
+                // Hanya untuk demo: reset status 'booked' menjadi 'available' setelah 5 menit
+                rooms.forEach((room, index) => {
+                    if (room.status === 'booked' && Math.random() > 0.9) {
+                        rooms[index].status = 'available';
+                    }
+                });
+                
+                // Jika halaman sedang aktif, refresh tampilan
+                if (!document.getElementById('qrResultSection').style.display || 
+                    document.getElementById('qrResultSection').style.display === 'none') {
+                    loadRooms();
+                }
+            }, 300000); // 5 menit
+        }
+
         // ==================== NEW BOOKING ====================
         function newBooking() {
             selectedRoom = null;
@@ -1386,6 +1439,9 @@
             
             loadRooms();
             generateTimeSlots();
+            
+            // Mulai simulasi reset status (opsional)
+            simulateStatusReset();
             
             document.getElementById('roomSearchInput').addEventListener('input', function() {
                 currentSearch = this.value.toLowerCase();
